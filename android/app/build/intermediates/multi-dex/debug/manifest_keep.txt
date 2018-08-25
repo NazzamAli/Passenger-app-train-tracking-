@@ -1,0 +1,3 @@
+# Referenced at E:\8th Semester\MyNewApp\android\app\build\intermediates\manifests\full\debug\AndroidManifest.xml:28
+-keep class com.mynewapp.MainApplication { <init>(...); }
+
