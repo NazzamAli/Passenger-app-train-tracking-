@@ -19,8 +19,8 @@ import home1 from './components/home1';
 import register from './components/register';
 import timings from './components/timings';
 import stations from './components/stations';
-
- export default class App extends Component {
+import foodorder from './components/foodorder';
+export default class App extends Component {
  
   constructor() {
     super();
@@ -56,6 +56,9 @@ const  AppStackNavigator=createStackNavigator({
   },
   Stations :{
     screen:stations
+  },
+  FoodOrder :{
+    screen:foodorder
   }
   
 },{

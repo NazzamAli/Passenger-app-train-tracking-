@@ -4,6 +4,7 @@ ADDED from E:\8th Semester\MyNewApp\android\app\src\main\AndroidManifest.xml:1:1
 INJECTED from E:\8th Semester\MyNewApp\android\app\src\main\AndroidManifest.xml:1:1-28:12
 INJECTED from E:\8th Semester\MyNewApp\android\app\src\main\AndroidManifest.xml:1:1-28:12
 INJECTED from E:\8th Semester\MyNewApp\android\app\src\main\AndroidManifest.xml:1:1-28:12
+MERGED from [:react-native-vector-icons] E:\8th Semester\MyNewApp\node_modules\react-native-vector-icons\android\build\intermediates\manifests\full\debug\AndroidManifest.xml:2:1-11:12
 MERGED from [:react-native-firebase] E:\8th Semester\MyNewApp\node_modules\react-native-firebase\android\build\intermediates\manifests\full\debug\AndroidManifest.xml:2:1-15:12
 MERGED from [com.android.support:multidex:1.0.3] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\multidex-1.0.3.aar\2d697a6dba90f8a4a6b1d1f7aaefe23f\AndroidManifest.xml:17:1-22:12
 MERGED from [com.facebook.react:react-native:0.55.4] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\react-native-0.55.4.aar\c4f5bd95a12a937145c8236d91002787\AndroidManifest.xml:2:1-15:12
@@ -181,6 +182,8 @@ uses-sdk
 INJECTED from E:\8th Semester\MyNewApp\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from E:\8th Semester\MyNewApp\android\app\src\main\AndroidManifest.xml
 INJECTED from E:\8th Semester\MyNewApp\android\app\src\main\AndroidManifest.xml
+MERGED from [:react-native-vector-icons] E:\8th Semester\MyNewApp\node_modules\react-native-vector-icons\android\build\intermediates\manifests\full\debug\AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-vector-icons] E:\8th Semester\MyNewApp\node_modules\react-native-vector-icons\android\build\intermediates\manifests\full\debug\AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-firebase] E:\8th Semester\MyNewApp\node_modules\react-native-firebase\android\build\intermediates\manifests\full\debug\AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-firebase] E:\8th Semester\MyNewApp\node_modules\react-native-firebase\android\build\intermediates\manifests\full\debug\AndroidManifest.xml:7:5-9:41
 MERGED from [com.android.support:multidex:1.0.3] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\multidex-1.0.3.aar\2d697a6dba90f8a4a6b1d1f7aaefe23f\AndroidManifest.xml:20:5-43
