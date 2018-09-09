@@ -73,7 +73,7 @@ import {
   View, Modal, TouchableHighlight, TouchableOpacity,FlatList
 } from 'react-native';
 import firebase from 'react-native-firebase';
-import {Icon} from 'react-native-elements;'
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 
@@ -82,6 +82,7 @@ import {Icon} from 'react-native-elements;'
 export default class App extends Component {
   constructor() {
     super();
+    this.state = { foodlist: [] ,count:0,num:0}
     this.ref = firebase.firestore().collection('fooditems');
   }
 
@@ -90,7 +91,7 @@ export default class App extends Component {
   static navigationOptions = {
     header: null
   }
-  state = { foodlist: [] }
+ 
 
   onSelectionsChange = (selectedFruits) => {
     // selectedFruits is array of { label, value }
@@ -116,6 +117,30 @@ export default class App extends Component {
 
   }
 
+  _incrementCount = () => {
+    this.setState({
+      count:this.state.count + 1,
+      num:this.state.count
+    });
+    console.log(this.state.count);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   renderItem=({item})=>{
     var {navigate}=this.props.navigation
       return (
@@ -126,13 +151,15 @@ export default class App extends Component {
         <Text style={{fontSize:25,marginBottom:10,textAlign:'center'}}>
           {item}
         </Text>
-        <Text  style={{fontSize:8,color:'blue'}}>react atie</Text>
+        <Text  style={{fontSize:8,color:'blue'}}>{this.state.num}</Text>
         </TouchableOpacity>
         </View>
         <View style={{flex:1,justifyContent:'center'}}>
-            <Text style={{fontSize:25,color:'purple',marginBottom:10,textAlign:'right'}}>ahmed</Text>
-            <Icon
-  name='rowing' />
+            <Text style={{fontSize:25,color:'purple',marginBottom:10,textAlign:'right'}}>
+            
+            <Icon color="black" name="check" size={20} onPress={() => console.log('hello ahmed')}/>
+            </Text>
+            <Text>{this.state.count}</Text>
         </View>
         
         </View>
@@ -176,7 +203,9 @@ export default class App extends Component {
 
       // </View>
       <View style={styles.container}>
-        
+        <View style={styles.container}>
+        <Text  style={{fontSize:25,color:'purple',marginBottom:10,textAlign:'center'}}>Total {this.state.count}</Text>
+         <View style={styles.listcontainer}>
          <FlatList
           data={this.state.dataArray}
 
@@ -188,8 +217,9 @@ export default class App extends Component {
           
 
         />
-        <Text>recat</Text>
-
+        </View>
+        <View><Text>ahmed</Text></View>
+        </View>
       </View>
     )
   }
@@ -204,5 +234,10 @@ const styles = StyleSheet.create({
   list: {
     flexDirection: 'row',
     backgroundColor: 'white'
+  },
+  listcontainer :{
+    width:'80%',
+    backgroundColor:'blue'
   }
+
 });

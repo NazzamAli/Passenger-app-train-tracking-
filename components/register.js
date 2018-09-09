@@ -20,36 +20,57 @@ import  firebase from 'react-native-firebase';
   
     onRegister = ()=> {
         console.log("Ahmed jahsu");
-        this.props.navigation.navigate('Login');
+        //this.props.navigation.navigate('Login');
         firebase.auth().createUserAndRetrieveDataWithEmailAndPassword(this.state.email,this.state.pass)
         .then((user)=>{
-          //console.log(this.state.email+""+this.state.pass);
-          this.ref = firebase.firestore().collection('passengers').add({
-          name :this.state.name,
-          cnic :this.state.cnic,
-          email :this.state.email,
-          pass : this.state.pass,
+          console.log("User data return "+user);
+          
+          this.add();
+          // this.ref = firebase.firestore().collection('passengers').add({
+          // name :this.state.name,
+          // cnic :this.state.cnic,
+          // email :this.state.email,
+          // pass : this.state.pass,
+          
          
-          })
-          .then((user)=>{
-            alert("successfull added");
-            this.setState({
-              name: '',
-              cnic: '',
-              email: '',
-              pass: ''
-          });
-          });
-          this.props.navigation.navigate('Login');
+          // })
+          // .then((user)=>{
+          //   alert("successfull added");
+          //   add();
+          //   this.setState({
+          //     name: '',
+          //     cnic: '',
+          //     email: '',
+          //     pass: ''
+          // });
+          // });
+          // this.props.navigation.navigate('Login');
         }).catch((error)=>{
           
           console.log(error);
         });
-
-
+      
+        
     }
 
+    add(){
+      firebase.auth().onAuthStateChanged((user)=>{
+        if (user) {
+          console.log("We are authenticated now!");
+          firebase.firestore().collection("passengers")
+              .doc(firebase.auth().currentUser.uid).set({ name :this.state.name,
+                cnic :this.state.cnic,
+                email :this.state.email,
+                pass : this.state.pass,
+              userid:firebase.auth().currentUser.uid});
+          alert("successfull added");
+          this.props.navigation.navigate('Login');
 
+      } else {
+        alert("successfull added");
+      }
+      })
+    }
 
 
 

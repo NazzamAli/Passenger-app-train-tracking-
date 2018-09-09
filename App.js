@@ -20,6 +20,8 @@ import register from './components/register';
 import timings from './components/timings';
 import stations from './components/stations';
 import foodorder from './components/foodorder';
+import test from './components/test';
+import additems from './components/additems';
 export default class App extends Component {
  
   constructor() {
@@ -59,10 +61,16 @@ const  AppStackNavigator=createStackNavigator({
   },
   FoodOrder :{
     screen:foodorder
+  },
+  Test : {
+    screen:test
+  },
+  AddItems :{
+    screen:additems
   }
   
 },{
-  initialRouteName: 'Home',
+  initialRouteName: 'Login',
 },);
 
 // const styles = StyleSheet.create({

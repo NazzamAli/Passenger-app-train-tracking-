@@ -16,7 +16,7 @@ export default class App extends Component {
 
   constructor() {
     super();
-    this.state = { dataArray: [], loading: true, refreshing: false };
+    this.state = { currentUser: null,dataArray: [], loading: true, refreshing: false,user:{} };
     this.ref = firebase.firestore().collection('trainroutes');
 
 
@@ -33,6 +33,14 @@ export default class App extends Component {
     this.props.navigation.navigate('home1', { message: item });
   }
   componentDidMount() {
+    this.authSubscription = firebase.auth().onAuthStateChanged((user) => {
+      this.setState({
+        loading: false,
+        user:user
+      });
+      console.log(user);
+      console.log("state wala "+this.state.user);
+    });
     this.GetData();
 
   }
@@ -80,25 +88,31 @@ export default class App extends Component {
       />
     );
   };
-
+  componentWillUnmount() {
+    this.authSubscription();
+  }
   static navigationOptions = {
     header: null
   }
 
   render() {
     const { navigate } = this.props.navigation
+    const {uid} =firebase.auth().currentUser;
     return (
       this.state.loading
         ?
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <ActivityIndicator color="#330066" animating></ActivityIndicator>
+          <Text>Loading.....</Text>
         </View>
         :
         <View style={
           { flex: 1, }
         }
         >
-
+          <Text>
+          Hi {uid}!
+        </Text>
           <TouchableOpacity
             onPress={() => navigate('Timings')}>
 
@@ -116,7 +130,11 @@ export default class App extends Component {
 
             <Text >Food Order</Text>
           </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigate('Test')}>
 
+            <Text >Test layout</Text>
+          </TouchableOpacity>
         </View>
 
     );
