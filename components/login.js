@@ -3,10 +3,12 @@
 import React, { Component } from 'react';
 import {Button,Text,TextInput,TouchableOpacity,StyleSheet,StatusBar, View} from 'react-native';
 import  firebase from 'react-native-firebase';
+import { Toast } from 'native-base';
 
-
-
-
+ const trp_id='';
+ export {trp_id};
+ const r_id='';
+ export {r_id} ;
  export default class App extends Component {
 
     constructor(props){
@@ -14,8 +16,11 @@ import  firebase from 'react-native-firebase';
       this.state ={
         email : '',
         pass : '',
+        t_id : '',
+        routeId: '',
       }
-      console.log("log is working");
+      this.ref = firebase.firestore().collection('ticketreservedpassengers');
+      
     }
 
 
@@ -27,19 +32,50 @@ import  firebase from 'react-native-firebase';
       }
   
      onLogin=()=>{
-     console.log("ahmed");
+     console.log(this.state.email,this.state.pass);
     //  this.props.navigation.navigate('Home');
       firebase.auth().signInAndRetrieveDataWithEmailAndPassword(this.state.email,this.state.pass)
       .then((user)=>{
         //console.log(this.state.email+""+this.state.pass);
         this.setState({email:'',pass:''});
-        this.props.navigation.navigate('Home');
+        this.props.navigation.navigate('Home1');
       }).catch((error)=>{
         alert(error);
         console.log(error);
       });
     }
 
+
+    track=()=>{
+       
+    
+      this.ref.where('tracking_id','==',this.state.t_id).onSnapshot(query=>{
+
+        if (query.size!=0){
+
+        query.forEach(doc => {
+       
+       
+         trp_id=doc.id;
+         r_id=doc.data().route_id;
+       
+        this.setState({routeId : doc.data().route_id});
+      
+   
+    });
+    this.props.navigation.navigate('Home',{id:this.state.routeId});
+  }
+        else {
+          ToastAndroid.show('Invalid Tracking Id', ToastAndroid.SHORT);
+         
+          
+        }
+
+         
+      });
+
+
+    }
 
 
 
@@ -87,9 +123,25 @@ import  firebase from 'react-native-firebase';
             </TouchableOpacity>   
             <View style={styles.signupTextCont}>
 					<Text style={styles.signupText}>Not a member?</Text>
-					<TouchableOpacity onPress={()=>this.props.navigation.navigate('Register')}><Text style={styles.signupButton}> Register</Text></TouchableOpacity>
-      
+					<TouchableOpacity onPress={()=>this.props.navigation.navigate('Register')}>
+          <Text style={styles.signupButton}> Register</Text></TouchableOpacity>
+                
         </View>
+        <View>
+
+      <TextInput  style={styles.inputBox} 
+                underlineColorAndroid='rgba(0,0,0,0)' 
+                placeholder="Tracking Id"
+                placeholderTextColor = "#ffffff"
+                selectionColor="#fff"
+                onChangeText = {
+                  (text) =>{
+                    this.setState({t_id:text});
+                  }
+                }
+                /> 
+                <TouchableOpacity onPress={this.track}><Text  style={{textAlign :'center'}}> Submit</Text></TouchableOpacity>
+      </View>
      </View>
     );
   }
@@ -99,12 +151,12 @@ import  firebase from 'react-native-firebase';
 
 const styles = StyleSheet.create({
     container : {
-        flexGrow: 1,
+        flex: 1,
         justifyContent:'center',
         alignItems: 'center',
         backgroundColor:'#455a64'
       },
-    
+     
       inputBox: {
         width:300,
         backgroundColor:'rgba(255, 255,255,0.2)',

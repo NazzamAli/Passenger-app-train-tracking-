@@ -3,110 +3,111 @@
 import React, { Component } from 'react';
 import {
   Button,
-  Text, TouchableOpacity, FlatList,ScrollView,TextInput, TouchableHighlight,ListItem,RefreshControl,Image,
-  View, StatusBar, FlatListItem,BackHandler,StyleSheet,style,ActivityIndicator,ToastAndroid
+  Text, TouchableOpacity, FlatList,ScrollView,TextInput, ToastAndroid,TouchableHighlight,ListItem,RefreshControl,Image,
+  View, StatusBar, FlatListItem,BackHandler,StyleSheet,style,ActivityIndicator,
 } from 'react-native';
 import firebase from 'react-native-firebase';
 import { Card, Icon } from 'react-native-elements'
+import cart from '../components/cart';
 
 
-
-
+a=[];
 export default class App extends Component {
- 
-  constructor() {
-    super();
-      this.state={foodlist: [] ,count:0,quantity:0,text: '',data:[],cartdata:[]}
-      this.ref = firebase.firestore().collection('fooditems');
+
+  constructor(props) {
+    super(props);
+      this.state={foodlist: [] ,count:0,quantity:0,text: '',data:[],cartdata:[],totalBill:0,names:[],array:[],
+      routeId:this.props.navigation.state.params.id,}
+     
+      this.ref = firebase.firestore().collection('route');
+      this.refer = firebase.firestore().collection('fooditems');
 }
 
   componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', function() {
-      // this.onMainScreen and this.goBack are just examples, you need to use your own implementation here
-      // Typically you would use the navigator here to go to the last state.
+    // BackHandler.addEventListener('hardwareBackPress', function() {
+    //   // this.onMainScreen and this.goBack are just examples, you need to use your own implementation here
+    //   // Typically you would use the navigator here to go to the last state.
     
      
-        this.goBack();
-        return true;
+    //     this.goBack();
+    //     return true;
      
      
+    // });
+    this.ref.doc(this.state.routeId).onSnapshot(query=>{
+      console.log(query.data());
+      const names=query.data().food;
+       
+     
+       this.setState({names:names});
+      
+
+       this.GetFoodItems();
     });
-    console.log("Compounutn monte");
-    this.GetFoodItems();
+   
+    
   }
 
   GetFoodItems() {
-    console.log("get food function");
-    var names = [];
-    this.ref.onSnapshot(query => {
-      console.log(query);
-      query.forEach(doc => {
-        names.push ({
-            name :doc.data().name,
-            price:doc.data().price,
-            img :doc.data().img
-      });
-        console.log("lodssd" + doc.data().name)
-      });
-      this.setState({ foodlist: names });
-
+  
+    var items =[];
+   for (const i=0; i < this.state.names.length;i++){
+     
+  this.refer.doc(this.state.names[i]).onSnapshot(query=>{
+   
+    items.push({
+      name : query.data().name,
+      img: query.data().img,
+      price : query.data().price,
     });
-
-  }
-  incc(name, price, index){
-  this.setState(prevState =>{
-      quantity: this.state.quantity + 1
+    this.setState({ foodlist: items });
+   
   });
+
+   }
+
+  
+
   }
-  inc(name,price,index){
-      
-    let arr=[];
-      if(this.state.quantity<=0 || this.state.count<=0){
-        this.setState({
-          count:0,
-          quantity:0
-      });
-      }
-      else {
-      this.setState({
-          count:this.state.count + parseInt(price),
-          quantity:this.state.quantity - 1
-      });
-      arr.push({
-        n :name,
-        p :price,
-        q :this.state.text
-      });
-      this.setState({data:arr})
-      console.log(arr);
-    }
-    console.log(arr);
-    console.log(this.state.count);
-    console.log(name);
-  }
-  dec(name,price,index){
-    if(this.state.quantity<=0 || this.state.count<=0){
-      this.setState({
-        count:0,
-        quantity:0
-    });
-    }
-    else {
-    this.setState({
-        count:this.state.count - parseInt(price),
-        quantity:this.state.quantity - 1
-    });
-  }
-    console.log(this.state.count);
-    console.log(name);
-  }  
 
   cart(name,price,img){
-    console.log("cart is called" +img);
+    
     //this.props.navigation.navigate('Home');
-    this.props.navigation.navigate('AddItems',{name:name,price:price,image:img});
+    this.props.navigation.navigate('AddItems',{name:name,price:price,image:img,b:this.bill.bind(this),arr:this.state.array});
   }
 
+   
+  bill(total,orderr){
+
+    orderr.forEach(order => {
+     // console.log(order.na);
+      a.push({
+        name:order.na,
+        price:order.pr,
+        image:order.im,
+        quant:order.qu
+      });
+    });
+
+    a.forEach(data =>{
+      console.log(data.name+"    "+data.price);
+    });
+
+
+
+
+
+    this.setState({cartdata:a});
+
+    // ToastAndroid.show(this.state.cartdata, ToastAndroid.SHORT);
+     this.setState({totalBill:this.state.totalBill + parseInt(total)});
+     
+    // ToastAndroid.show(this.state.cartdata, ToastAndroid.SHORT);
+    
+    // for(const i = 0;i<a.length;i++){
+    //   console.log(a[i].name +"   " +a[i].price+"   "+a[i].quant);
+    // }
+  }
   
 
 
@@ -141,22 +142,32 @@ export default class App extends Component {
         </Card>
     });
   
+    
 
 
 
-
-
+const {navigate} =this.props.navigation;
 
     return (
     <View style={styles.container}>
-    <Text style={{fontSize:25,color:'purple',marginBottom:5,textAlign:'center'}}>Total  {this.state.count}</Text>
+    <Text style={{fontSize:25,color:'white',marginBottom:5,textAlign:'center'}}>Total  {this.state.totalBill}</Text>
      
     <ScrollView style={styles.contentContainer}>
-    <View style={styles.list}>
+        <View style={styles.list}>
         {d}
         </View>
+        
+         
     </ScrollView>
-    
+      <View style={{alignContent:'center',flexDirection:'row',justifyContent:"center",backgroundColor:'skyblue'}}>
+        
+        <Button title=" View Cart" color="skyblue"
+                onPress={()=>navigate('Cart',{amount:this.state.totalBill,orders:this.state.cartdata})}/>
+        <Icon  color="yellow" name="shopping-cart" type='font-awesome' size={25} />         
+      </View>         
+           
+         
+      
     </View>
     );
   }
@@ -164,12 +175,14 @@ export default class App extends Component {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: 'gray',
+      backgroundColor: '#1c313a',
 
 
     },
     contentContainer: {
         //paddingVertical: 50,
+       
+        backgroundColor: 'white'
       },
     list: {
       flexDirection: 'row',
