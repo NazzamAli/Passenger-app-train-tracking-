@@ -23,9 +23,7 @@ export default class App extends Component {
             selected: 'Karakaram',
             date: ''
         };
-        this.ref = firebase.firestore().collection('foodorder');
-
-
+        
     }
 
     onValueChange(value) {

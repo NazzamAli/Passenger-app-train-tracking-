@@ -25,6 +25,7 @@ import additems from './components/additems';
 import cart from './components/cart';
 import booking from './components/booking';
 import seats from './components/seats';
+import payment from './components/payment';
 export default class App extends Component {
  
   constructor() {
@@ -85,13 +86,21 @@ const  AppStackNavigator=createStackNavigator({
     screen :seats,
    navigationOptions:{
      header:null
-   }
-   
+   },
+  },
+  Payment : {
+    screen:payment,
+    navigationOptions:{
+      header : null
+    }
   }
   
-},{
+  
+},
+{
   initialRouteName: 'Seats',
-},);
+},
+);
 
 // const styles = StyleSheet.create({
 //   container: {
