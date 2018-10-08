@@ -1,69 +1,6 @@
 
 
-// import React, { Component } from 'react';
-// import {
-//   Button,
-//   Text, TouchableOpacity, FlatList, TouchableHighlight, ListItem, RefreshControl,
-//   View, StatusBar, FlatListItem, StyleSheet, style, ActivityIndicator, ToastAndroid
-// } from 'react-native';
-// import firebase from 'react-native-firebase';
 
-
-
-
-
-// export default class App extends Component {
-
-//   constructor() {
-//     super();
-//     //this.state = { loading: false };
-
-
-//   }
-
-//   componentDidMount() {
-
-//   }
-//     static navigationOptions = {
-//     header: null
-//   }
-
-//   render() {
-//     const { navigate } = this.props.navigation
-//     return (
-//       // this.state.loading
-//       //   ?
-//       //   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-//       //     <ActivityIndicator size="large" color="#0000ff" />
-//       //   </View>
-//       //   :
-//       <View>
-//       <Text>ahemhhakjfh</Text>
-//         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-//           <ActivityIndicator size="large" color="#0000ff" />
-//          </View>
-//         <View style={[styles.container, styles.horizontal]}>
-//         <ActivityIndicator size="large" color="#0000ff" />
-//         <ActivityIndicator size="small" color="#00ff00" />
-//         <ActivityIndicator size="large" color="#0000ff" />
-//         <ActivityIndicator size="small" color="#00ff00" />
-//       </View>
-//     </View>
-//     );
-//   }
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: 'center'
-//   },
-//   horizontal: {
-//     flexDirection: 'row',
-//     justifyContent: 'space-around',
-//     padding: 10
-//   }
-// })
 import React, { Component } from 'react'
 import {
   ActivityIndicator,

@@ -139,6 +139,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-spinkit')
     compile project(':react-native-firebase')
     compile project(':react-native-vector-icons')
     implementation project(':react-native-firebase')

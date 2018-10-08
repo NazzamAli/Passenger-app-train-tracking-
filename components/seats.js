@@ -41,7 +41,7 @@ export default class App extends Component {
        
        // this.GetData();
         var seats=[];
-        this.ref.where('date','==','2018-09-30').where('train_id','==','eOlVKfe1y6mz34sxHxFp').onSnapshot(query => {
+        this.ref.where('date','==','2018-10-03').where('train_id','==','eOlVKfe1y6mz34sxHxFp').onSnapshot(query => {
             
           query.forEach(doc => {
             seats=[...doc.data().reserved_seats];

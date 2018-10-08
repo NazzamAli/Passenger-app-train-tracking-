@@ -1,9 +1,10 @@
 
 
 import React, { Component } from 'react';
-import {Button,Text,TextInput,TouchableOpacity,StyleSheet,StatusBar, View} from 'react-native';
+import {Button,Text,TextInput,TouchableOpacity,ActivityIndicator,StyleSheet,ToastAndroid,StatusBar, View} from 'react-native';
 import  firebase from 'react-native-firebase';
 import { Toast } from 'native-base';
+// import Spinner  from 'react-native-spinkit';
 
  const trp_id='';
  export {trp_id};
@@ -18,6 +19,7 @@ import { Toast } from 'native-base';
         pass : '',
         t_id : '',
         routeId: '',
+        loading:false,
       }
       this.ref = firebase.firestore().collection('ticketreservedpassengers');
       
@@ -86,12 +88,14 @@ import { Toast } from 'native-base';
 
   render() {
     return (
-       
+     
         <View style={styles.container}>
+      
         <StatusBar
            backgroundColor="#1c313a"
            barStyle="light-content"
          />
+           
             <TextInput style={styles.inputBox} 
                 underlineColorAndroid='rgba(0,0,0,0)' 
                 placeholder="Email"
@@ -142,6 +146,7 @@ import { Toast } from 'native-base';
                 /> 
                 <TouchableOpacity onPress={this.track}><Text  style={{textAlign :'center'}}> Submit</Text></TouchableOpacity>
       </View>
+    
      </View>
     );
   }

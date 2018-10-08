@@ -3,12 +3,12 @@
 import React, { Component } from 'react';
 import {
   Button,
-  Text, TouchableOpacity, FlatList, TouchableHighlight,ToolbarAndroid, ListItem, RefreshControl, Image,
+  Text, TouchableOpacity, FlatList, TouchableHighlight,ToolbarAndroid,ScrollView, ListItem, RefreshControl, Image,
   View, StatusBar, FlatListItem, StyleSheet, style, ActivityIndicator, ToastAndroid
 } from 'react-native';
 import { Icon } from 'react-native-elements'
 import firebase from 'react-native-firebase';
-
+// import Spinner  from 'react-native-spinkit';
 
 
 
@@ -17,7 +17,7 @@ export default class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { currentUser: null, dataArray: [], loading: false, refreshing: false, user: {},
+    this.state = { currentUser: null, dataArray: [], loading: false, refreshing: false, user: {},  
     routeId:this.props.navigation.state.params.id,
   };
   
@@ -103,29 +103,27 @@ export default class App extends Component {
     const { navigate } = this.props.navigation
     // const {uid} =firebase.auth().currentUser;
     return (
-      this.state.loading
-        ?
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <ActivityIndicator color="#330066" animating></ActivityIndicator>
-          <Text>Loading.....</Text>
-        </View>
-        :
-        <View style={styles.container}>
-
+     
+       
+         <View style={styles.container}>
           <View style={styles.corusel}>
-
+        {/* <Image source={{uri: 'https://www.swissvistas.com/image-files/xswiss-trains-01.jpg.pagespeed.ic.rehZlxnXIL.jpg'}} style={{width: '100%', height: '100%'}} />  */}
+        <Image source={{uri: 'https://cdn.pixabay.com/photo/2012/10/10/05/04/locomotive-60539_640.jpg'}} style={{width: '100%', height: '100%'}} /> 
           </View>
 
-          <View style={styles.down}>
 
+          <View style={styles.down}>
+          <ScrollView style={{ width:'100%',height:'100%',alignContent:'center'}}>
+          <View style={styles.down}>
             <View style={styles.downitems}>
               <View style={styles.downinner}>
               {/* <Image source={{uri: 'https://www.flaticon.com/authors/eucalyp'}} style={{width: 40, height: 40}} /> */}
                 {/* <Image source={require('../images/ico.png')} style={{width: 40, height: 40}} /> */}
-                <TouchableOpacity onPress={() => navigate('Timings')}>
+                <TouchableOpacity onPress={() => navigate('Mytimings',{id:this.state.routeId})}>
 
-                  <Icon color="white" name="clock-o" type='font-awesome' size={65} />
-                  <Text style={styles.text}>Timings</Text>
+                  <Icon color="white" name="train" type='font-awesome' size={65} />
+                  <Text style={styles.text}>Stations</Text>
+                  
 
                 </TouchableOpacity>
 
@@ -147,10 +145,10 @@ export default class App extends Component {
             <View style={styles.downitems}>
               <View style={styles.downinner}>
 
-                <TouchableOpacity onPress={() => navigate('Booking')}>
+                <TouchableOpacity onPress={() => navigate('Myticket',{id:this.state.routeId})}>
 
                   <Icon color="white" name="ticket" type='font-awesome' size={65} />
-                  <Text style={styles.text}>Booking</Text>
+                  <Text style={styles.text}>My Ticket</Text>
 
                 </TouchableOpacity>
               </View>
@@ -160,15 +158,68 @@ export default class App extends Component {
               <View style={styles.downinner}>
 
                 <TouchableOpacity onPress={() => navigate('Test',{id:this.state.routeId})}>
-                <Image source={require('../images/meal.png')} style={{width: 70, height: 70}} /> 
-                  {/* <Icon color="white" name="clock-o" type='font-awesome' size={65} /> */}
+               
+                  <Icon color="white" name="food-fork-drink" type='material-community' size={65} />
                   <Text style={styles.text}>Food Order</Text>
 
                 </TouchableOpacity>
               </View>
             </View>
 
-          </View>
+            <View style={styles.downitems}>
+              <View style={styles.downinner}>
+
+                <TouchableOpacity onPress={() => navigate('Notifications',{id:this.state.routeId})}>
+               
+                  <Icon color="white" name="bell" type='font-awesome' size={65} />
+                  <Text style={styles.text}>Notifications</Text>
+
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            <View style={styles.downitems}>
+              <View style={styles.downinner}>
+
+                <TouchableOpacity onPress={() => navigate('Alert',{id:this.state.routeId})}>
+                {/* <Image source={require('../images/meal.png')} style={{width: 70, height: 70}} />  */}
+                 <Icon color="white" name="wechat" type='font-awesome' size={65} />
+                  <Text style={styles.text}>Chat</Text>
+
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View style={styles.downitems}>
+              <View style={styles.downinner}>
+
+                <TouchableOpacity onPress={() => navigate('Penality',{id:this.state.routeId})}>
+                {/* <Image source={require('../images/meal.png')} style={{width: 70, height: 70}} />  */}
+                 <Icon color="white" name="payment"  size={65} />
+                  <Text style={styles.text}>Penality</Text>
+
+                </TouchableOpacity>
+              </View>
+            </View>
+       <View style={styles.downitems}>
+              <View style={styles.downinner}>
+
+                <TouchableOpacity onPress={() => navigate('Alert',{id:this.state.routeId})}>
+               {/* <Image source={require('../images/meal.png')} style={{width: 70, height: 70}} />   */}
+                 <Icon color="white" name="alarm"  size={65} />
+                  <Text style={styles.text}>Alert</Text>
+
+                </TouchableOpacity>
+              </View>
+            </View> 
+            
+            </View>
+</ScrollView> 
+</View>
+          
+          
+       
+  
+
 
 
 
@@ -197,18 +248,21 @@ const styles = StyleSheet.create({
   },
   corusel: {
     backgroundColor: 'purple',
-    height: '45%',
+    height: '55%',
   },
   down: {
-    height: '55%',
-    backgroundColor: 'yellow',
+    height: '45%',
+    //backgroundColor: 'yellow',
     flexDirection: 'row',
     flexWrap: 'wrap',
+     margin: 10,
+    
   },
   downitems: {
-    width: '50%',
-    height: '50%',
-    padding: 5,
+    width: '33%',
+    height: '49%',
+     padding: 2,
+     marginBottom: 20,
   },
   downinner: {
     flex: 1,

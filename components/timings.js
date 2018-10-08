@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import firebase from 'react-native-firebase';
 
-
+import { Card, Icon } from 'react-native-elements'
 
 
 

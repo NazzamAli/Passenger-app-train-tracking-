@@ -63,7 +63,7 @@ export default class App extends Component {
             <View style={styles.downitems}>
               <View style={styles.downinner}>
 
-                <TouchableOpacity onPress={() => navigate('home1')}>
+                <TouchableOpacity onPress={() => navigate('Booking')}>
 
                   <Icon color="white" name="clock-o" type='font-awesome' size={65} />
                   <Text style={styles.text}>Booking</Text>

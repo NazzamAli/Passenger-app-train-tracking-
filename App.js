@@ -25,7 +25,12 @@ import additems from './components/additems';
 import cart from './components/cart';
 import booking from './components/booking';
 import seats from './components/seats';
+import myticket from './components/myticket';
 import payment from './components/payment';
+import mytimings from './components/mytimings';
+import notifications from './components/notifications';
+import penality from './components/penality';
+import alert from './components/alert';
 export default class App extends Component {
  
   constructor() {
@@ -93,12 +98,43 @@ const  AppStackNavigator=createStackNavigator({
     navigationOptions:{
       header : null
     }
+  },
+  Myticket : {
+    screen:myticket,
+    navigationOptions:{
+      header : null
+    }
+  },
+  Mytimings : {
+    screen:mytimings,
+    navigationOptions:{
+      header : null
+    }
+  },
+  Notifications : {
+    screen:notifications,
+    navigationOptions:{
+      header : null
+    }
+  },
+  Penality : {
+    screen:penality,
+    navigationOptions:{
+      header : null
+    }
+  },
+  Alert : {
+    screen:alert,
+    navigationOptions:{
+      header : null
+    }
   }
+  
   
   
 },
 {
-  initialRouteName: 'Seats',
+  initialRouteName: 'Login',
 },
 );
 

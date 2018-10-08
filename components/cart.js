@@ -1,11 +1,11 @@
 
 
 import React, { Component } from 'react';
-import { Button, Text, TextInput, ScrollView, ToastAndroid,TouchableOpacity, StyleSheet, StatusBar, View } from 'react-native';
+import { Text, TextInput, ScrollView, ToastAndroid,TouchableOpacity, StyleSheet, StatusBar, View } from 'react-native';
 import firebase from 'react-native-firebase';
 import { List, ListItem } from 'react-native-elements';
 import { Icon } from 'react-native-elements';
-
+import { Button } from 'react-native-elements';
 import {r_id} from './login';
 import {trp_id} from './login';
 
@@ -81,9 +81,20 @@ export default class App extends Component {
                     <Text style={{ fontSize: 25, color: 'white', marginBottom: 5, textAlign: 'center' }}>  Total bill  {this.state.totalamount}</Text>
       <View style={{alignContent:'center',flexDirection:'row',justifyContent:"center",backgroundColor:'skyblue'}}>
         
-        <Button title="Confirm" color="skyblue"
+        <Button title="Confirm" color="purple"  buttonStyle={styles.cartbtn}  icon={{
+                  name: 'check-circle',
+                  size: 25,
+                  color: 'green'
+                }}
                 onPress={this.order}/>
-        <Icon  color="green" name="check-circle" type='font-awesome' size={25} />         
+        {/* <Icon  color="green" name="check-circle" type='font-awesome' size={25} />                  */}
+        {/* <Button title=" View Cart" color="purple"  buttonStyle={styles.cartbtn}   titleStyle={styles.ts}
+                icon={{
+                  name: 'shopping-cart',
+                  size: 25,
+                  color: 'yellow'
+                }}
+                onPress={()=>navigate('Cart',{amount:this.state.totalBill,orders:this.state.cartdata})}/> */}
       </View> 
 
              
@@ -109,6 +120,13 @@ const styles = StyleSheet.create({
         paddingBottom: 20,
         
       },
+      cartbtn :{
+    
+        backgroundColor: 'transparent',
+        width: 300,
+      height: 45,
+    
+    },
      
 
 });

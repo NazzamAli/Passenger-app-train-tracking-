@@ -2,21 +2,22 @@
 
 import React, { Component } from 'react';
 import {
-  Button,
+  
   Text, TouchableOpacity, FlatList,ScrollView,TextInput, ToastAndroid,TouchableHighlight,ListItem,RefreshControl,Image,
   View, StatusBar, FlatListItem,BackHandler,StyleSheet,style,ActivityIndicator,
 } from 'react-native';
 import firebase from 'react-native-firebase';
-import { Card, Icon } from 'react-native-elements'
+import { Card, Icon } from 'react-native-elements';
+import { Button } from 'react-native-elements';
 import cart from '../components/cart';
-
+import Spinner  from 'react-native-spinkit';
 
 a=[];
 export default class App extends Component {
 
   constructor(props) {
     super(props);
-      this.state={foodlist: [] ,count:0,quantity:0,text: '',data:[],cartdata:[],totalBill:0,names:[],array:[],
+      this.state={foodlist: [] ,count:0,quantity:0,text: '',data:[],cartdata:[],totalBill:0,names:[],array:[],loading:true,
       routeId:this.props.navigation.state.params.id,}
      
       this.ref = firebase.firestore().collection('route');
@@ -61,7 +62,7 @@ export default class App extends Component {
       price : query.data().price,
     });
     this.setState({ foodlist: items });
-   
+    this.state.loading =false;
   });
 
    }
@@ -130,7 +131,7 @@ export default class App extends Component {
            
            <View style={styles.list}>
             <View >
-          <Button title="Place Order" onPress={()=>{this.cart(num.name,num.price,num.img)}}/>
+          <Button title="Place Order" onPress={()=>{this.cart(num.name,num.price,num.img)}} buttonStyle={styles.btn}/>
           {/* <Icon  color="blue" name="minus" type='font-awesome' size={20} onPress={()=>{this.dec(num.name,num.price,index)}} />
           
           <Text>{this.state.quantity} {index}</Text>
@@ -149,6 +150,17 @@ export default class App extends Component {
 const {navigate} =this.props.navigation;
 
     return (
+      <View style={styles.container}>
+      {this.state.loading
+        ?
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center',backgroundColor:'white' }}>
+         <Spinner color={'red'} size={100} type={'Wave'}/>
+        
+        </View>
+        :
+        
+      
+
     <View style={styles.container}>
     <Text style={{fontSize:25,color:'white',marginBottom:5,textAlign:'center'}}>Total  {this.state.totalBill}</Text>
      
@@ -161,13 +173,20 @@ const {navigate} =this.props.navigation;
     </ScrollView>
       <View style={{alignContent:'center',flexDirection:'row',justifyContent:"center",backgroundColor:'skyblue'}}>
         
-        <Button title=" View Cart" color="skyblue"
+        <Button title=" View Cart" color="purple"  buttonStyle={styles.cartbtn}   titleStyle={styles.ts}
+                icon={{
+                  name: 'shopping-cart',
+                  size: 25,
+                  color: 'yellow'
+                }}
                 onPress={()=>navigate('Cart',{amount:this.state.totalBill,orders:this.state.cartdata})}/>
-        <Icon  color="yellow" name="shopping-cart" type='font-awesome' size={25} />         
+        
+   
       </View>         
            
          
       
+    </View>}
     </View>
     );
   }
@@ -195,6 +214,26 @@ const styles = StyleSheet.create({
     listcontainer :{
       width:'80%',
       backgroundColor:'blue'
+    },
+    cartbtn :{
+    
+        backgroundColor: 'transparent',
+        width: 300,
+      height: 45,
+    
+    },
+    btn: {
+      backgroundColor: "rgba(92, 99,216, 1)",
+      width: 300,
+      height: 45,
+      borderColor: "transparent",
+      borderWidth: 0,
+      borderRadius: 5
+    },
+    ts :{
+      fontWeight: "900" ,
+      fontSize:200
+                
     }
   
   });
