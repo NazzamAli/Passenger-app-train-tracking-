@@ -13,6 +13,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import DatePicker from 'react-native-datepicker';
 import { Picker, Item } from 'native-base';
 
+
 MySeat=[];totalseats=[];
 export default class App extends Component {
 
@@ -20,10 +21,18 @@ export default class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // selected: this.props.navigation.state.params.train,
-            // date:this.props.navigation.state.params.date,
-            array:[],AllSeats:[],data:[],MySelection:[]
+             selected: this.props.navigation.state.params.train,
+             r_id :'',
+             fare : this.props.navigation.state.params.fare,
+             date:this.props.navigation.state.params.date,  
+            array:[],AllSeats:[],data:[],MySelection:[],
+            slat: this.props.navigation.state.params.slat,
+            slng: this.props.navigation.state.params.slng,
+            dlat: this.props.navigation.state.params.dlat,
+            dlng: this.props.navigation.state.params.dlng,
         };
+
+        console.log("akfgf "+this.state.slat);console.log(this.state.dlng);
         this.ref = firebase.firestore().collection('route');
        
        for(const i=0;i<63;i++){
@@ -38,14 +47,16 @@ export default class App extends Component {
     }
 
     componentDidMount(){
-       
+       //console.log(this.state.selected+""+this.state.date);
        // this.GetData();
         var seats=[];
-        this.ref.where('date','==','2018-10-03').where('train_id','==','eOlVKfe1y6mz34sxHxFp').onSnapshot(query => {
+        this.ref.where('date','==',this.state.date).where('train_id','==',this.state.selected).onSnapshot(query => {
             
           query.forEach(doc => {
             seats=[...doc.data().reserved_seats];
             totalseats=[...totalseats,...doc.data().reserved_seats];
+            this.setState({r_id:doc.id});
+            console.log(this.state.r_id);
             console.log(doc.data().reserved_seats);
             console.log(seats);
           });
@@ -141,11 +152,15 @@ export default class App extends Component {
         this.setState({MySelection:MySeat});
         console.log(this.state.AllSeats);
         console.log(this.state.MySelection);
+       // console.log(this.state.selected);
 
-        navigate('Payment',{total:totalseats,myseats:MySeat});
+       // navigate('Payment',{total:totalseats,myseats:MySeat,t_id:this.state.selected});
+       navigate('Paypal',{total:totalseats,myseats:MySeat,t_id:this.state.selected,route_id:this.state.r_id,fare:this.state.fare});
     }
 
     render() {
+
+      
      
                 const d =this.state.array.map((i,index)=>{
            
@@ -182,6 +197,7 @@ export default class App extends Component {
               <Button title="Confirm"
                   onPress={this.Confirm}
               />
+              
             </View>
 
         );

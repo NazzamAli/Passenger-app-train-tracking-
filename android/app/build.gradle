@@ -139,9 +139,11 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-sound')
     compile project(':react-native-spinkit')
     compile project(':react-native-firebase')
     compile project(':react-native-vector-icons')
+     compile project(':react-native-sound')
     implementation project(':react-native-firebase')
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.0.2'

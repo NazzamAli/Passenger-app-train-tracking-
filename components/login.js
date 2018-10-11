@@ -18,7 +18,7 @@ import { Toast } from 'native-base';
         email : '',
         pass : '',
         t_id : '',
-        routeId: '',
+        routeId: '',tp:'',
         loading:false,
       }
       this.ref = firebase.firestore().collection('ticketreservedpassengers');
@@ -62,10 +62,11 @@ import { Toast } from 'native-base';
          r_id=doc.data().route_id;
        
         this.setState({routeId : doc.data().route_id});
+        this.setState({tp : doc.id});
       
    
     });
-    this.props.navigation.navigate('Home',{id:this.state.routeId});
+    this.props.navigation.navigate('Home',{id:this.state.routeId,tp:this.state.tp});
   }
         else {
           ToastAndroid.show('Invalid Tracking Id', ToastAndroid.SHORT);

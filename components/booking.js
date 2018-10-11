@@ -20,10 +20,27 @@ export default class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selected: 'Karakaram',
-            date: ''
+            selected: '',
+            date: '',
+            data:[]
         };
+       
+        this.ref = firebase.firestore().collection('trains');
         
+    }
+    componentWillMount() {
+      const array=[];
+      this.ref.onSnapshot(query=>{
+           
+        query.forEach(doc=>{
+         array.push({
+             id:doc.id,
+             name:doc.data().name
+         });
+     });
+     this.setState({data:[...array]});
+         console.log(this.state.data);
+     });
     }
 
     onValueChange(value) {
@@ -31,8 +48,21 @@ export default class App extends Component {
             selected: value
         });
 
+       
+    }
+
+    booked=()=>{
+        const { navigate } = this.props.navigation;
         console.log(this.state.date);
         console.log(this.state.selected);
+        if(this.state.selected == "" || this.state.date == ""){
+            ToastAndroid.show("Please select train and date",ToastAndroid.SHORT);
+        }
+        else{
+            //navigate('Seats',{date:this.state.date,train:this.state.selected});
+            navigate('Payment',{date:this.state.date,train:this.state.selected});
+        }
+       
     }
 
 
@@ -40,7 +70,7 @@ export default class App extends Component {
     render() {
 
         //const {uid} =firebase.auth().currentUser;
-        const { navigate } = this.props.navigation;
+       
         const { params } = this.props.navigation;
         return (
             <View style={styles.container}>
@@ -55,8 +85,15 @@ export default class App extends Component {
                                 selectedValue={this.state.selected}
                                 onValueChange={this.onValueChange.bind(this)}
                             >
-                                <Picker.Item label="Karakaram" value="Karakaram" />
-                                <Picker.Item label="Green Line" value="Green Line" />
+                             <Picker.Item label="Select" value="" />
+                             {
+                                this.state.data.map((i,index)=>{
+                                return  <Picker.Item key={index} label= {`${i.name}`} value={`${i.id}`} />
+                                })
+                            }
+                           
+                               
+                               
                                 
                             </Picker>
                             </View>
@@ -96,7 +133,7 @@ export default class App extends Component {
                                 title='Check Availability'
                                 buttonStyle={styles.btnstyle}
 
-                                onPress={()=>navigate('Seats',{date:this.state.date,train:this.state.selected})}
+                                onPress={this.booked}
                             />
                             
                             </View>

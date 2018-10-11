@@ -1,5 +1,3 @@
-
-
 import React, { Component } from 'react';
 import {
     Image,
@@ -10,17 +8,18 @@ import {
 import firebase from 'react-native-firebase';
 import { Card, Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome';
-import DatePicker from 'react-native-datepicker';
 import { Picker } from 'native-base';
-import { trp_id } from './login';
 import { List, ListItem } from 'react-native-elements';
-
+import {getDistance} from 'geolib';
+import Sound from 'react-native-sound';
 
 
 
 array=[];
-export default class App extends Component {
 
+export default class Alert extends Component {
+
+    
 
     constructor(props) {
         super(props);
@@ -28,29 +27,42 @@ export default class App extends Component {
             selected: '',geo:'',
             date: '', array:[],
             trainroute_id:'', loading : true ,refreshing:false,station: [], stationData: [],toggle:false,
-            routeId:this.props.navigation.state.params.id
+            routeId:this.props.navigation.state.params.id,
+            tp_i:this.props.navigation.state.params.tpi
         };
-        
+        console.log(this.state.tp_i);
+
         this.ref = firebase.firestore().collection('route');
         this.refer =firebase.firestore().collection('trainroutes');
         this.referr =firebase.firestore().collection('ticketreservedpassengers');
 
+        this.whoosh = new Sound('http://soundbible.com/mp3/Beep-SoundBible.com-923660219.mp3', Sound.MAIN_BUNDLE, (error) => {
+            if (error) {
+            console.log('failed to load the sound', error);
+            return;
+            }
+            // loaded successfully
+            console.log('duration in seconds: ' + this.whoosh.getDuration() + 'number of channels: ' + this.whoosh.getNumberOfChannels());
+        }); 
 
-     
+          
+this.whoosh.setNumberOfLoops(0);
+
+       
+    
            
        
     }
     componentDidMount() {
 
-        this.referr.doc('vVGk0Km0qYgD7t4B65dP').onSnapshot(query=>{
+        this.referr.doc(`${this.state.tp_i}`).onSnapshot(query=>{
             console.log(query.data().Alarms);
-           var a=Object.values(query.data().Alarms);
+          
            
-            this.setState({array:a});
+            this.setState({array:query.data().Alarms});
             console.log(this.state.array);
         });
  
-
 
 
 
@@ -109,15 +121,47 @@ export default class App extends Component {
 
 
     }
-    toggle=(status,index)=>{
-        console.log(index);
-        if(status === true) {
-this.referr.doc('vVGk0Km0qYgD7t4B65dP').update({ ['Alarms.' + index + '.status']: false});
-        }
-        else {
-            this.referr.doc('vVGk0Km0qYgD7t4B65dP').update({ ['Alarms.' + index + '.status']: true});
-        }
+    toggle=(status,index)=>{ 
 
+        array.length = 0;
+
+        console.log(this.state.array)
+        this.state.array.forEach((i ,ii) => {
+
+            if(ii == index && status == true){
+
+                
+                this.whoosh.stop();
+                this.whoosh.pause();
+                
+                array.push({
+                    name : i.name,
+                    status: false,
+                    station_name : i.station_name
+                });
+
+            }
+            else if(ii == index && status == false)
+            {
+            array.push({
+                name : i.name,
+                status: true,
+                station_name : i.station_name
+            });
+
+        
+            }
+            else{
+               
+                array.push({
+                    name : i.name,
+                    status: i.status,
+                    station_name : i.station_name
+                });
+            }
+        })
+            this.referr.doc(`${this.state.tp_i}`).update({Alarms:array });
+        
     }
 
 
@@ -125,16 +169,50 @@ this.referr.doc('vVGk0Km0qYgD7t4B65dP').update({ ['Alarms.' + index + '.status']
 
 
 add =()=>{
+    check = false;
+    array.length = 0;
     console.log('add');
     console.log(this.state.date);
     console.log(this.state.selected);
+    const data = this.state.selected.split(" ")
+    const id = data[0]
+    const name = data[1]
+    if(this.state.array != null ){
+    this.state.array.map((data) => {
+       
+        if(data.name != id){
+        array.push({
+            name : data.name,
+            status: data.status,
+            station_name : data.station_name
+        });        
+        }
+        else{
+            alert('Already in the Alert')
+        }
+
+    })
+
+    // this.state.array.map(ii => {
+    //     console.log('in add function' + ' '+ this.state.selected + ' /n'+ ii.id)
+    //     if(this.state.selected == ii.name){
+    //         alert('Already Added in the Alert');
+    //         check = true;
+    //         break;
+    //     }
+    // })
+
+    }
     array.push({
-        name :this.state.selected,
-        status:true
+        name :id,
+        status:true,
+        station_name : name
     });
-    console.log(array);
-   
-    this.referr.doc('vVGk0Km0qYgD7t4B65dP').update({ Alarms:array});
+    // this.setState({'array' : array})
+    // console.log(array);
+  
+
+    this.referr.doc(`${this.state.tp_i}`).update({ Alarms:array});
    
 
     
@@ -155,11 +233,48 @@ add =()=>{
 
 
     render() {
+        
+       
 
+        setInterval(()=>{
+ 
+        if(this.state.array != null){
+            this.state.array.map((i,index)=> {
+                this.state.stationData.map((i2 , index2)=>{
+
+                    if(i.status == true ){
+                        console.log('matched')
+                        if(i.name == i2.id){
+                            console.log('inner matched'+ i2.lat)
+                         const a = geolib.getDistance(
+                            {latitude: i2.lat, longitude: i2.lng},
+                            {latitude: 33.65795669, longitude: 73.15931726}
+                        );
+                        const b = geolib.convertUnit('km', a, 2)
+                        if(b<15){
+                        console.log("innnnnnnnnn")
+                        this.whoosh.stop();            
+                        this.whoosh.play(
+  
+                        );
+
+                                          }
+                                                                                
+  
+                                        }
+                    }
+                })
+
+                
+            }) 
+        }
+
+  
+    },5000)
         //const {uid} =firebase.auth().currentUser;
-        const { navigate } = this.props.navigation;
-        const { params } = this.props.navigation;
-        return (
+        // const { navigate } = this.props.navigation;
+        // const { params } = this.props.navigation;
+         return (
             <View style={styles.container}>
                 <Card title="Set Alarm" containerStyle={{height:'60%'}}>
                     {
@@ -178,7 +293,7 @@ add =()=>{
                              
                             {
                                 this.state.stationData.map((i,index)=>{
-                                return  <Picker.Item key={index} label= {`${i.name}`} value={`${i.id},${i.name}`} />
+                                return  <Picker.Item key={index} label= {`${i.name}`} value={`${i.id} ${i.name}`} />
                                 })
                             }
                            
@@ -226,12 +341,13 @@ add =()=>{
             
                 <List   containerStyle={{ marginBottom: 20 }}>
              {
+                 this.state.array == null ? null :
                  this.state.array.map((l,i) => (
                      <ListItem  
                         key={i}
                          hideChevron={true}      
                          key={i}
-                         title={l.name}
+                         title={l.station_name}
                          
                          switchButton={true}
                          switched={l.status}

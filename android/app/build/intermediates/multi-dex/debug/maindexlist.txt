@@ -275,6 +275,7 @@ com/mynewapp/MainApplication$1.class
 com/mynewapp/MainApplication.class
 com/oblador/vectoricons/VectorIconsPackage.class
 com/react/rnspinkit/RNSpinkitPackage.class
+com/zmxv/RNSound/RNSoundPackage.class
 io/grpc/ClientInterceptor.class
 io/grpc/ExperimentalApi.class
 io/grpc/Internal.class

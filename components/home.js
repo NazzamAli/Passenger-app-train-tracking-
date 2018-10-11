@@ -9,7 +9,7 @@ import {
 import { Icon } from 'react-native-elements'
 import firebase from 'react-native-firebase';
 // import Spinner  from 'react-native-spinkit';
-
+import {trp_id} from './login';
 
 
 
@@ -19,8 +19,9 @@ export default class App extends Component {
     super(props);
     this.state = { currentUser: null, dataArray: [], loading: false, refreshing: false, user: {},  
     routeId:this.props.navigation.state.params.id,
+    tp_i:this.props.navigation.state.params.tp
   };
-  
+  console.log(this.state.tp_i);
     // this.ref = firebase.firestore().collection('trainroutes');
 
 
@@ -133,7 +134,7 @@ export default class App extends Component {
             <View style={styles.downitems}>
               <View style={styles.downinner}>
 
-                <TouchableOpacity onPress={() => navigate('home1')}>
+                <TouchableOpacity onPress={() => navigate('Tracking')}>
                 {/* <Image source={require('../images/meall.png')} style={{width: 40, height: 40}} /> */}
                   <Icon color="white" name="map-marker" type='font-awesome' size={65} />
                   <Text style={styles.text}>Tracking</Text>
@@ -203,7 +204,7 @@ export default class App extends Component {
        <View style={styles.downitems}>
               <View style={styles.downinner}>
 
-                <TouchableOpacity onPress={() => navigate('Alert',{id:this.state.routeId})}>
+                <TouchableOpacity onPress={() => navigate('Alert',{id:this.state.routeId,tpi:this.state.tp_i})}>
                {/* <Image source={require('../images/meal.png')} style={{width: 70, height: 70}} />   */}
                  <Icon color="white" name="alarm"  size={65} />
                   <Text style={styles.text}>Alert</Text>

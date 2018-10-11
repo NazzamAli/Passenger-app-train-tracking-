@@ -4,6 +4,7 @@ ADDED from E:\8th Semester\MyNewApp\android\app\src\main\AndroidManifest.xml:1:1
 INJECTED from E:\8th Semester\MyNewApp\android\app\src\main\AndroidManifest.xml:1:1-28:12
 INJECTED from E:\8th Semester\MyNewApp\android\app\src\main\AndroidManifest.xml:1:1-28:12
 INJECTED from E:\8th Semester\MyNewApp\android\app\src\main\AndroidManifest.xml:1:1-28:12
+MERGED from [:react-native-sound] E:\8th Semester\MyNewApp\node_modules\react-native-sound\android\build\intermediates\manifests\full\debug\AndroidManifest.xml:2:1-12:12
 MERGED from [:react-native-spinkit] E:\8th Semester\MyNewApp\node_modules\react-native-spinkit\android\build\intermediates\manifests\full\debug\AndroidManifest.xml:2:1-16:12
 MERGED from [:react-native-firebase] E:\8th Semester\MyNewApp\node_modules\react-native-firebase\android\build\intermediates\manifests\full\debug\AndroidManifest.xml:2:1-15:12
 MERGED from [:react-native-vector-icons] E:\8th Semester\MyNewApp\node_modules\react-native-vector-icons\android\build\intermediates\manifests\full\debug\AndroidManifest.xml:2:1-11:12
@@ -30,25 +31,25 @@ MERGED from [com.google.firebase:firebase-measurement-connector:16.0.0] C:\Users
 MERGED from [com.google.android.gms:play-services-ads-identifier:15.0.1] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\play-services-ads-identifier-15.0.1.aar\bd39ccacb3003f6527659da7af80c9f6\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.android.gms:play-services-basement:15.0.1] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\play-services-basement-15.0.1.aar\da132474f3625a4ffd745b3fb28d0b13\AndroidManifest.xml:17:1-28:12
 MERGED from [com.android.support:support-v4:27.0.2] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\support-v4-27.0.2.aar\8ec6cb3a9285ea9f7825c86c9a0e9234\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-media-compat:27.0.2] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.0.2.aar\e854baa2654ec45d279ffa171a689a58\AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:support-fragment:27.0.2] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\support-fragment-27.0.2.aar\c56a39c567d68a8cecf5ee48254a276e\AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:support-core-utils:27.0.2] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.0.2.aar\ab34b03bacb32e41ba5ad3f6d1ac0105\AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:animated-vector-drawable:27.0.2] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.0.2.aar\9eabd6ca9206b099920ae51f74b8e6a9\AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:support-vector-drawable:27.0.2] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.0.2.aar\4196ec132c976f9b0b9bf8da482c48b5\AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:support-core-ui:27.0.2] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.0.2.aar\0474de3a70363c493e1d842028c8f4b9\AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:support-media-compat:27.0.2] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.0.2.aar\e854baa2654ec45d279ffa171a689a58\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-vector-drawable:27.0.2] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.0.2.aar\4196ec132c976f9b0b9bf8da482c48b5\AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:support-compat:27.0.2] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\support-compat-27.0.2.aar\14f91c23698261b5f30ac56ccf3b4e64\AndroidManifest.xml:17:1-22:12
 MERGED from [android.arch.lifecycle:runtime:1.0.3] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\runtime-1.0.3.aar\46f0a641a2e039c7a2d7874ebf987a6f\AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.firebase:protolite-well-known-types:15.0.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\protolite-well-known-types-15.0.0.aar\ee43b4300cefb1467ecf8c6ef01d13b3\AndroidManifest.xml:2:1-11:12
+MERGED from [com.google.android.gms:play-services-measurement-base:16.0.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\play-services-measurement-base-16.0.0.aar\4f67078ef844aa14322d81f8a5f77a63\AndroidManifest.xml:17:1-24:12
+MERGED from [com.facebook.fresco:imagepipeline-okhttp3:1.3.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\imagepipeline-okhttp3-1.3.0.aar\900b3ee58442813746eb435217e011ef\AndroidManifest.xml:2:1-9:12
 MERGED from [com.facebook.fbui.textlayoutbuilder:textlayoutbuilder:1.0.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\textlayoutbuilder-1.0.0.aar\df27ab8b3e70351d193f2aba3208d8e3\AndroidManifest.xml:10:1-18:12
 MERGED from [com.facebook.fresco:fresco:1.3.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\fresco-1.3.0.aar\a9dd1f174be3821727dae331d71e93ef\AndroidManifest.xml:2:1-9:12
-MERGED from [com.facebook.fresco:imagepipeline-okhttp3:1.3.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\imagepipeline-okhttp3-1.3.0.aar\900b3ee58442813746eb435217e011ef\AndroidManifest.xml:2:1-9:12
 MERGED from [com.facebook.soloader:soloader:0.1.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\soloader-0.1.0.aar\ee3f772ee61ce81dc29e3444a8ce4324\AndroidManifest.xml:1:1-4:12
 MERGED from [org.webkit:android-jsc:r174650] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\android-jsc-r174650.aar\892adc0cf1f9a7af4c5a34ac1769d197\AndroidManifest.xml:1:1-3:12
-MERGED from [com.google.firebase:protolite-well-known-types:15.0.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\protolite-well-known-types-15.0.0.aar\ee43b4300cefb1467ecf8c6ef01d13b3\AndroidManifest.xml:2:1-11:12
 MERGED from [com.facebook.fresco:drawee:1.3.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\drawee-1.3.0.aar\75ed94be81a3d1fc510d07e17a2ab3e8\AndroidManifest.xml:2:1-9:12
 MERGED from [com.facebook.fresco:imagepipeline:1.3.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\imagepipeline-1.3.0.aar\fdff645b957d02ecc412d3a50c19e1e4\AndroidManifest.xml:2:1-9:12
 MERGED from [com.facebook.fresco:imagepipeline-base:1.3.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\imagepipeline-base-1.3.0.aar\556a8e87107c848cb293cfc77703141b\AndroidManifest.xml:2:1-9:12
 MERGED from [com.facebook.fresco:fbcore:1.3.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\fbcore-1.3.0.aar\b482f3032430580440b56b696ac9eb5c\AndroidManifest.xml:2:1-9:12
-MERGED from [com.google.android.gms:play-services-measurement-base:16.0.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\play-services-measurement-base-16.0.0.aar\4f67078ef844aa14322d81f8a5f77a63\AndroidManifest.xml:17:1-24:12
 INJECTED from E:\8th Semester\MyNewApp\android\app\src\main\AndroidManifest.xml:1:1-28:12
 INJECTED from E:\8th Semester\MyNewApp\android\app\src\main\AndroidManifest.xml:1:1-28:12
 INJECTED from E:\8th Semester\MyNewApp\android\app\src\main\AndroidManifest.xml:1:1-28:12
@@ -142,12 +143,12 @@ MERGED from [com.google.android.gms:play-services-ads-identifier:15.0.1] C:\User
 MERGED from [com.google.android.gms:play-services-ads-identifier:15.0.1] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\play-services-ads-identifier-15.0.1.aar\bd39ccacb3003f6527659da7af80c9f6\AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.gms:play-services-basement:15.0.1] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\play-services-basement-15.0.1.aar\da132474f3625a4ffd745b3fb28d0b13\AndroidManifest.xml:22:5-26:19
 MERGED from [com.google.android.gms:play-services-basement:15.0.1] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\play-services-basement-15.0.1.aar\da132474f3625a4ffd745b3fb28d0b13\AndroidManifest.xml:22:5-26:19
+MERGED from [com.google.android.gms:play-services-measurement-base:16.0.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\play-services-measurement-base-16.0.0.aar\4f67078ef844aa14322d81f8a5f77a63\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-measurement-base:16.0.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\play-services-measurement-base-16.0.0.aar\4f67078ef844aa14322d81f8a5f77a63\AndroidManifest.xml:22:5-20
 MERGED from [com.facebook.soloader:soloader:0.1.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\soloader-0.1.0.aar\ee3f772ee61ce81dc29e3444a8ce4324\AndroidManifest.xml:3:3-17
 MERGED from [com.facebook.soloader:soloader:0.1.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\soloader-0.1.0.aar\ee3f772ee61ce81dc29e3444a8ce4324\AndroidManifest.xml:3:3-17
 MERGED from [org.webkit:android-jsc:r174650] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\android-jsc-r174650.aar\892adc0cf1f9a7af4c5a34ac1769d197\AndroidManifest.xml:2:3-17
 MERGED from [org.webkit:android-jsc:r174650] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\android-jsc-r174650.aar\892adc0cf1f9a7af4c5a34ac1769d197\AndroidManifest.xml:2:3-17
-MERGED from [com.google.android.gms:play-services-measurement-base:16.0.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\play-services-measurement-base-16.0.0.aar\4f67078ef844aa14322d81f8a5f77a63\AndroidManifest.xml:22:5-20
-MERGED from [com.google.android.gms:play-services-measurement-base:16.0.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\play-services-measurement-base-16.0.0.aar\4f67078ef844aa14322d81f8a5f77a63\AndroidManifest.xml:22:5-20
 	android:supportsRtl
 		ADDED from [:react-native-spinkit] E:\8th Semester\MyNewApp\node_modules\react-native-spinkit\android\build\intermediates\manifests\full\debug\AndroidManifest.xml:13:9-35
 	android:label
@@ -188,6 +189,8 @@ uses-sdk
 INJECTED from E:\8th Semester\MyNewApp\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from E:\8th Semester\MyNewApp\android\app\src\main\AndroidManifest.xml
 INJECTED from E:\8th Semester\MyNewApp\android\app\src\main\AndroidManifest.xml
+MERGED from [:react-native-sound] E:\8th Semester\MyNewApp\node_modules\react-native-sound\android\build\intermediates\manifests\full\debug\AndroidManifest.xml:8:5-10:41
+MERGED from [:react-native-sound] E:\8th Semester\MyNewApp\node_modules\react-native-sound\android\build\intermediates\manifests\full\debug\AndroidManifest.xml:8:5-10:41
 MERGED from [:react-native-spinkit] E:\8th Semester\MyNewApp\node_modules\react-native-spinkit\android\build\intermediates\manifests\full\debug\AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-spinkit] E:\8th Semester\MyNewApp\node_modules\react-native-spinkit\android\build\intermediates\manifests\full\debug\AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-firebase] E:\8th Semester\MyNewApp\node_modules\react-native-firebase\android\build\intermediates\manifests\full\debug\AndroidManifest.xml:7:5-9:41
@@ -240,32 +243,34 @@ MERGED from [com.google.android.gms:play-services-basement:15.0.1] C:\Users\Ahme
 MERGED from [com.google.android.gms:play-services-basement:15.0.1] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\play-services-basement-15.0.1.aar\da132474f3625a4ffd745b3fb28d0b13\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-v4:27.0.2] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\support-v4-27.0.2.aar\8ec6cb3a9285ea9f7825c86c9a0e9234\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-v4:27.0.2] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\support-v4-27.0.2.aar\8ec6cb3a9285ea9f7825c86c9a0e9234\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:27.0.2] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.0.2.aar\e854baa2654ec45d279ffa171a689a58\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:27.0.2] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.0.2.aar\e854baa2654ec45d279ffa171a689a58\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-fragment:27.0.2] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\support-fragment-27.0.2.aar\c56a39c567d68a8cecf5ee48254a276e\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-fragment:27.0.2] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\support-fragment-27.0.2.aar\c56a39c567d68a8cecf5ee48254a276e\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-core-utils:27.0.2] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.0.2.aar\ab34b03bacb32e41ba5ad3f6d1ac0105\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-core-utils:27.0.2] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.0.2.aar\ab34b03bacb32e41ba5ad3f6d1ac0105\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:animated-vector-drawable:27.0.2] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.0.2.aar\9eabd6ca9206b099920ae51f74b8e6a9\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:animated-vector-drawable:27.0.2] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.0.2.aar\9eabd6ca9206b099920ae51f74b8e6a9\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-vector-drawable:27.0.2] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.0.2.aar\4196ec132c976f9b0b9bf8da482c48b5\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-vector-drawable:27.0.2] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.0.2.aar\4196ec132c976f9b0b9bf8da482c48b5\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-core-ui:27.0.2] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.0.2.aar\0474de3a70363c493e1d842028c8f4b9\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-core-ui:27.0.2] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.0.2.aar\0474de3a70363c493e1d842028c8f4b9\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-media-compat:27.0.2] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.0.2.aar\e854baa2654ec45d279ffa171a689a58\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-media-compat:27.0.2] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.0.2.aar\e854baa2654ec45d279ffa171a689a58\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:27.0.2] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.0.2.aar\4196ec132c976f9b0b9bf8da482c48b5\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:27.0.2] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.0.2.aar\4196ec132c976f9b0b9bf8da482c48b5\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-compat:27.0.2] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\support-compat-27.0.2.aar\14f91c23698261b5f30ac56ccf3b4e64\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-compat:27.0.2] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\support-compat-27.0.2.aar\14f91c23698261b5f30ac56ccf3b4e64\AndroidManifest.xml:20:5-44
 MERGED from [android.arch.lifecycle:runtime:1.0.3] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\runtime-1.0.3.aar\46f0a641a2e039c7a2d7874ebf987a6f\AndroidManifest.xml:20:5-22:41
 MERGED from [android.arch.lifecycle:runtime:1.0.3] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\runtime-1.0.3.aar\46f0a641a2e039c7a2d7874ebf987a6f\AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.firebase:protolite-well-known-types:15.0.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\protolite-well-known-types-15.0.0.aar\ee43b4300cefb1467ecf8c6ef01d13b3\AndroidManifest.xml:7:5-9:41
+MERGED from [com.google.firebase:protolite-well-known-types:15.0.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\protolite-well-known-types-15.0.0.aar\ee43b4300cefb1467ecf8c6ef01d13b3\AndroidManifest.xml:7:5-9:41
+MERGED from [com.google.android.gms:play-services-measurement-base:16.0.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\play-services-measurement-base-16.0.0.aar\4f67078ef844aa14322d81f8a5f77a63\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-base:16.0.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\play-services-measurement-base-16.0.0.aar\4f67078ef844aa14322d81f8a5f77a63\AndroidManifest.xml:20:5-44
+MERGED from [com.facebook.fresco:imagepipeline-okhttp3:1.3.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\imagepipeline-okhttp3-1.3.0.aar\900b3ee58442813746eb435217e011ef\AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline-okhttp3:1.3.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\imagepipeline-okhttp3-1.3.0.aar\900b3ee58442813746eb435217e011ef\AndroidManifest.xml:5:5-7:41
 MERGED from [com.facebook.fbui.textlayoutbuilder:textlayoutbuilder:1.0.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\textlayoutbuilder-1.0.0.aar\df27ab8b3e70351d193f2aba3208d8e3\AndroidManifest.xml:14:5-16:41
 MERGED from [com.facebook.fbui.textlayoutbuilder:textlayoutbuilder:1.0.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\textlayoutbuilder-1.0.0.aar\df27ab8b3e70351d193f2aba3208d8e3\AndroidManifest.xml:14:5-16:41
 MERGED from [com.facebook.fresco:fresco:1.3.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\fresco-1.3.0.aar\a9dd1f174be3821727dae331d71e93ef\AndroidManifest.xml:5:5-7:41
 MERGED from [com.facebook.fresco:fresco:1.3.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\fresco-1.3.0.aar\a9dd1f174be3821727dae331d71e93ef\AndroidManifest.xml:5:5-7:41
-MERGED from [com.facebook.fresco:imagepipeline-okhttp3:1.3.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\imagepipeline-okhttp3-1.3.0.aar\900b3ee58442813746eb435217e011ef\AndroidManifest.xml:5:5-7:41
-MERGED from [com.facebook.fresco:imagepipeline-okhttp3:1.3.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\imagepipeline-okhttp3-1.3.0.aar\900b3ee58442813746eb435217e011ef\AndroidManifest.xml:5:5-7:41
 MERGED from [com.facebook.soloader:soloader:0.1.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\soloader-0.1.0.aar\ee3f772ee61ce81dc29e3444a8ce4324\AndroidManifest.xml:2:3-70
 MERGED from [com.facebook.soloader:soloader:0.1.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\soloader-0.1.0.aar\ee3f772ee61ce81dc29e3444a8ce4324\AndroidManifest.xml:2:3-70
-MERGED from [com.google.firebase:protolite-well-known-types:15.0.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\protolite-well-known-types-15.0.0.aar\ee43b4300cefb1467ecf8c6ef01d13b3\AndroidManifest.xml:7:5-9:41
-MERGED from [com.google.firebase:protolite-well-known-types:15.0.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\protolite-well-known-types-15.0.0.aar\ee43b4300cefb1467ecf8c6ef01d13b3\AndroidManifest.xml:7:5-9:41
 MERGED from [com.facebook.fresco:drawee:1.3.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\drawee-1.3.0.aar\75ed94be81a3d1fc510d07e17a2ab3e8\AndroidManifest.xml:5:5-7:41
 MERGED from [com.facebook.fresco:drawee:1.3.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\drawee-1.3.0.aar\75ed94be81a3d1fc510d07e17a2ab3e8\AndroidManifest.xml:5:5-7:41
 MERGED from [com.facebook.fresco:imagepipeline:1.3.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\imagepipeline-1.3.0.aar\fdff645b957d02ecc412d3a50c19e1e4\AndroidManifest.xml:5:5-7:41
@@ -274,8 +279,6 @@ MERGED from [com.facebook.fresco:imagepipeline-base:1.3.0] C:\Users\Ahmed\.gradl
 MERGED from [com.facebook.fresco:imagepipeline-base:1.3.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\imagepipeline-base-1.3.0.aar\556a8e87107c848cb293cfc77703141b\AndroidManifest.xml:5:5-7:41
 MERGED from [com.facebook.fresco:fbcore:1.3.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\fbcore-1.3.0.aar\b482f3032430580440b56b696ac9eb5c\AndroidManifest.xml:5:5-7:41
 MERGED from [com.facebook.fresco:fbcore:1.3.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\fbcore-1.3.0.aar\b482f3032430580440b56b696ac9eb5c\AndroidManifest.xml:5:5-7:41
-MERGED from [com.google.android.gms:play-services-measurement-base:16.0.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\play-services-measurement-base-16.0.0.aar\4f67078ef844aa14322d81f8a5f77a63\AndroidManifest.xml:20:5-44
-MERGED from [com.google.android.gms:play-services-measurement-base:16.0.0] C:\Users\Ahmed\.gradle\caches\transforms-1\files-1.1\play-services-measurement-base-16.0.0.aar\4f67078ef844aa14322d81f8a5f77a63\AndroidManifest.xml:20:5-44
 INJECTED from E:\8th Semester\MyNewApp\android\app\src\main\AndroidManifest.xml
 INJECTED from E:\8th Semester\MyNewApp\android\app\src\main\AndroidManifest.xml
 	android:targetSdkVersion

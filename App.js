@@ -31,6 +31,9 @@ import mytimings from './components/mytimings';
 import notifications from './components/notifications';
 import penality from './components/penality';
 import alert from './components/alert';
+import Paypal from './components/Paypal';
+import tracking from './components/tracking';
+import practice from './components/practice';
 export default class App extends Component {
  
   constructor() {
@@ -125,6 +128,24 @@ const  AppStackNavigator=createStackNavigator({
   },
   Alert : {
     screen:alert,
+    navigationOptions:{
+      header : null
+    }
+  },
+  Practice : {
+    screen:practice,
+    navigationOptions:{
+      header : null
+    }
+  },
+  Paypal : {
+    screen:Paypal,
+    navigationOptions:{
+      header : null
+    }
+  },
+  Tracking : {
+    screen:tracking,
     navigationOptions:{
       header : null
     }
