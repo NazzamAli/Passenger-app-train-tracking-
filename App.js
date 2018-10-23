@@ -33,7 +33,8 @@ import penality from './components/penality';
 import alert from './components/alert';
 import Paypal from './components/Paypal';
 import tracking from './components/tracking';
-import practice from './components/practice';
+
+import profile from './components/profile';
 export default class App extends Component {
  
   constructor() {
@@ -48,7 +49,9 @@ export default class App extends Component {
   
   render() {
     return (
-        <AppStackNavigator/>
+      
+      <AppStackNavigator/>
+      
     );
   }
 }
@@ -56,8 +59,12 @@ const  AppStackNavigator=createStackNavigator({
   Login: {
     screen:login,    
   },
+ 
   Home :{
-    screen:home
+    screen:home,
+    navigationOptions:{
+      header:null
+    }
   },
   Register :{
     screen:register
@@ -132,12 +139,7 @@ const  AppStackNavigator=createStackNavigator({
       header : null
     }
   },
-  Practice : {
-    screen:practice,
-    navigationOptions:{
-      header : null
-    }
-  },
+
   Paypal : {
     screen:Paypal,
     navigationOptions:{
@@ -146,6 +148,12 @@ const  AppStackNavigator=createStackNavigator({
   },
   Tracking : {
     screen:tracking,
+    navigationOptions:{
+      header : null
+    }
+  },
+  Profile : {
+    screen:profile,
     navigationOptions:{
       header : null
     }

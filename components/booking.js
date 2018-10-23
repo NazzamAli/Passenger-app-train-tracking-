@@ -8,7 +8,7 @@ import {
     View, StatusBar, FlatListItem, StyleSheet, style, ActivityIndicator, ToastAndroid, BackAndroid,
 } from 'react-native';
 import firebase from 'react-native-firebase';
-import { Card, Button } from 'react-native-elements'
+import { Card, Button, Divider } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import DatePicker from 'react-native-datepicker';
 import { Picker } from 'native-base';
@@ -74,7 +74,10 @@ export default class App extends Component {
         const { params } = this.props.navigation;
         return (
             <View style={styles.container}>
-                <Card title="Seat Booking" containerStyle={{height:'60%'}}>
+                <Card title="Seat Booking" containerStyle={{height:'50%',backgroundColor:'#eeeeee'}}
+                dividerStyle={{backgroundColor:'black'}}
+                titleStyle={{fontSize:18}}
+                >
                     {
                         <View style={styles.list}>
                             <View style={styles.list}>
@@ -97,12 +100,15 @@ export default class App extends Component {
                                 
                             </Picker>
                             </View>
+                           
                             <View style={styles.list}>
                             <DatePicker
                                 style={{ width: 200 }}
                                 date={this.state.date}
                                 mode="date"
-                                placeholder="select date"
+                                placeholder="Select date"
+                                
+                                placeHolderTextStyle={{ color: '#eeeeee' }}
                                 format="YYYY-MM-DD"
                                 minDate="2017-05-01"
                                 maxDate="2022-06-01"
@@ -122,6 +128,7 @@ export default class App extends Component {
                                 }}
                                 onDateChange={(date) => { this.setState({ date: date }) }}
                             />
+
                             </View>
                             <View style={styles.list}>
                             <Button
@@ -159,7 +166,7 @@ export default class App extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        //backgroundColor: 'gray',
+        backgroundColor: 'white',
 
 
     },
@@ -176,7 +183,7 @@ const styles = StyleSheet.create({
     },
     list: {
         flexDirection: 'row',
-        backgroundColor: 'white',
+        backgroundColor: '#eeeeee',
         justifyContent: 'center',
         flexWrap: 'wrap',
         paddingBottom: 20,

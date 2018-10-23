@@ -49,18 +49,20 @@ export default class App extends Component {
            </View>
            :
             <View style={styles.container}>
-            <Text style={{ fontSize: 25, color: 'white', marginBottom: 5, textAlign: 'center' }}> Notification </Text>
+            <Text style={{ fontSize: 25, color: 'white',marginTop:10, marginBottom: 10, textAlign: 'center' }}> Notification </Text>
             
-            <ScrollView  style={{ height: 50, backgroundColor: 'powderblue'}}>
+            <ScrollView  style={{ height: 50, backgroundColor: '#eeeeee'}}>
             
                 <List   containerStyle={{ marginBottom: 20 }}>
              {
                  this.state.dataArray.map((l,i) => (
                      <ListItem  
+                        containerStyle={{height:70,justifyContent:'center'}}
                         key={i}
                          hideChevron={true}      
                          key={l}
                          title={l}
+                         titleStyle={{fontSize:20}}
                      />
                  ))
             }

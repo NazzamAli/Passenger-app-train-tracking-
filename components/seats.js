@@ -35,7 +35,7 @@ export default class App extends Component {
         console.log("akfgf "+this.state.slat);console.log(this.state.dlng);
         this.ref = firebase.firestore().collection('route');
        
-       for(const i=0;i<63;i++){
+       for(const i=1;i<63;i++){
            this.state.array.push({
                value:i,
                color:"rgba(92, 99,216, 1)",
@@ -105,7 +105,7 @@ export default class App extends Component {
 
             this.setState({ array: b });
 
-            MySeat.push(a.value);
+            MySeat.push(a.value.toString());
             console.log(MySeat);
        
         }
@@ -155,7 +155,8 @@ export default class App extends Component {
        // console.log(this.state.selected);
 
        // navigate('Payment',{total:totalseats,myseats:MySeat,t_id:this.state.selected});
-       navigate('Paypal',{total:totalseats,myseats:MySeat,t_id:this.state.selected,route_id:this.state.r_id,fare:this.state.fare});
+       navigate('Paypal',{total:totalseats,myseats:MySeat,t_id:this.state.selected,route_id:this.state.r_id,fare:this.state.fare,
+        slat:this.state.slat,slng:this.state.slng,dlat:this.state.dlat,dlng:this.state.dlng});
     }
 
     render() {
@@ -172,10 +173,10 @@ export default class App extends Component {
             disabledStyle={{backgroundColor:'red'}}
             buttonStyle={{
                         backgroundColor: i.color,
-                        
+                        borderRadius:100,
                         width:50,
                         marginBottom: 10,
-                        height: 45,
+                        height: 50,
                         borderColor: "transparent",
                         borderWidth: 0,
        }}
@@ -188,16 +189,37 @@ export default class App extends Component {
         const { params } = this.props.navigation;
         return (
             <View style={styles.container}>
-               <Text>{this.state.date}  {this.state.selected}</Text>
-               <ScrollView>
+                <View style={{marginTop:5,flexDirection:'row',justifyContent:'center'}}>
+                <Icon color="blue" name="circle" type='font-awesome' size={15} />
+                <Text>Available</Text>
+                </View>
+
+                <View style={{marginTop:5,flexDirection:'row',justifyContent:'center',marginBottom:6}}>
+                <Icon color="red" name="circle" type='font-awesome' size={15} />
+                <Text>Already Booked</Text>
+                </View>
+
+               
+              
+               <ScrollView style={{backgroundColor:'#eeeeee'}}>
                <View style={styles.list}>
-              {d}
+                      
+                      {d}
+             
+
               </View>
               </ScrollView>
               <Button title="Confirm"
+               icon={{
+                  name: 'check-circle',
+                  size: 25,
+                  color: 'green'
+                }}
+                    buttonStyle={{backgroundColor:'transparent',width:'100%'}}
+                    textStyle={{fontSize:22,color:'green'}}
                   onPress={this.Confirm}
               />
-              
+             
             </View>
 
         );
@@ -226,12 +248,15 @@ const styles = StyleSheet.create({
         borderWidth: 0,
        
     },
+    
     list: {
         flexDirection: 'row',
         backgroundColor: 'white',
         justifyContent: 'center',
         flexWrap: 'wrap',
         paddingBottom: 20,
+        backgroundColor:'#eeeeee',
+        
 
     },
     listcontainer: {

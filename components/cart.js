@@ -22,16 +22,21 @@ export default class App extends Component {
     }
     order=()=>{
         const { navigate } = this.props.navigation;
-       
+      
          this.ref.add({
             ticketreservedpassengers : trp_id ,
             route_id : r_id,
             order :this.state.orderlist,
-            total:this.state.totalamount
+            total:this.state.totalamount,
+            status:''
           
       });
       ToastAndroid.show('Order sent successfully',ToastAndroid.SHORT);
+        
+        const {params} = this.props.navigation.state;
+        params.empt();
       navigate('Home');
+     
     }
 
 
@@ -58,21 +63,27 @@ export default class App extends Component {
         return (
 
             <View style={styles.container}>
-                <Text style={{ fontSize: 25, color: 'white', marginBottom: 5, textAlign: 'center' }}> Order List </Text>
+                <Text style={{ fontSize: 25, color: 'white',marginTop:10, marginBottom: 10, textAlign: 'center' }}> Order List </Text>
                 
-                <ScrollView  style={{ height: 50, backgroundColor: 'powderblue'}}>
+                <ScrollView  style={{ height: 50, backgroundColor: '#eeeeee'}}>
                 
                     <List   containerStyle={{ marginBottom: 20 }}>
                  {
-                     this.state.orderlist.map((l) => (
+                     this.state.orderlist.map((l,i) => (
                          <ListItem  
+                         key={i}
+                            titleStyle={{fontSize:20}}
                              hideChevron={true}      
                              badge={{value:l.quant}}
                              roundAvatar
                              avatar={{ uri: l.image }}
+                             
+                            
                              subtitle={'Price '+l.price }
+                             subtitleStyle={{fontSize:10}}
                              key={l.name}
                              title={l.name}
+                             containerStyle={{height:70,justifyContent:'center'}}
                          />
                      ))
                 }
@@ -82,10 +93,13 @@ export default class App extends Component {
       <View style={{alignContent:'center',flexDirection:'row',justifyContent:"center",backgroundColor:'skyblue'}}>
         
         <Button title="Confirm" color="purple"  buttonStyle={styles.cartbtn}  icon={{
+                  
                   name: 'check-circle',
                   size: 25,
                   color: 'green'
                 }}
+                titleStyle={{ fontWeight: "700",fontSize:10 }}
+                textStyle={{fontSize:22}}
                 onPress={this.order}/>
         {/* <Icon  color="green" name="check-circle" type='font-awesome' size={25} />                  */}
         {/* <Button title=" View Cart" color="purple"  buttonStyle={styles.cartbtn}   titleStyle={styles.ts}

@@ -2,13 +2,13 @@
 
 import React, { Component } from 'react';
 import {
-  Button,Image,
+  Image,
   Text, TouchableOpacity, FlatList,BackHandler,
   BackHandlerBackHandler ,TouchableHighlight,ListItem,RefreshControl,
   View, StatusBar, FlatListItem,StyleSheet,style,ActivityIndicator,ToastAndroid,BackAndroid,
 } from 'react-native';
 import firebase from 'react-native-firebase';
-import { Card } from 'react-native-elements'
+import { Button,Card } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
@@ -34,6 +34,9 @@ export default class App extends Component {
 
    
   AddCart(n,p,i,q){
+   
+    if (q > 0) {
+     
     const arr=[];
    
      arr.push({
@@ -46,9 +49,14 @@ export default class App extends Component {
       const {params} = this.props.navigation.state;
       params.b(this.state.total,arr);
       this.props.navigation.navigate('Test');
-   
+    }
+    else {
+      ToastAndroid.show("Please select the quatity",ToastAndroid.SHORT);
+    }
 
   }
+
+
   inc(quant,pri){
     
     if(this.state.quantity<0 || this.state.count<0){
@@ -96,9 +104,9 @@ export default class App extends Component {
             <Card containerStyle={{width:'90%',backgroundColor:'white'}}> 
 
             <Image source={{uri: this.state.img}}
-                style={{width: 400, height: 400}} />
-            <Text>Price  {this.state.price}  Rs.</Text>    
-            <Text style={{fontSize:18,color :'skyblue' ,marginBottom:10,textAlign:'center'}}>Quantity</Text>
+                style={{width: 420, height: 350}} />
+            <Text style={{fontSize:20}}>Price  {this.state.price}  Rs.</Text>    
+            <Text style={{fontSize:18,backgroundColor:'#eeeeee',fontWeight:'700' ,marginBottom:10,textAlign:'center'}}>Quantity</Text>
                 <View style={styles.Iconlist}>
 
                     <TouchableOpacity>
@@ -116,11 +124,12 @@ export default class App extends Component {
                                 }}/>
                     </TouchableOpacity>
                 </View>
-                <Text style={{paddingTop:'5%'}}> Total  {this.state.total}</Text>
+                <Text style={{paddingTop:'5%',marginBottom:5,fontSize:20}}> Total  {this.state.total}</Text>
 
                 <View >
                 
-                <Button title="Add to cart" 
+                <Button title="Add to cart"  buttonStyle={styles.btn}
+                        textStyle={{fontSize:18}}
                         onPress={()=>{
                         this.AddCart(this.state.name,this.state.total,this.state.img,this.state.quantity)}}/>
                                
@@ -141,7 +150,7 @@ export default class App extends Component {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: 'gray',
+      backgroundColor: '#eeeeee',
 
 
     },
@@ -164,6 +173,14 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       backgroundColor: 'white',
       justifyContent:'space-between',
-    }
+    },
+    btn: {
+      backgroundColor: "rgba(92, 99,216, 1)",
+      width: 300,
+      height: 45,
+      borderColor: "transparent",
+      borderWidth: 0,
+     // borderRadius: 5
+    },
   
   });

@@ -8,7 +8,7 @@ import {
     View, StatusBar, FlatListItem, StyleSheet, style, ActivityIndicator, ToastAndroid, BackAndroid,
 } from 'react-native';
 import firebase from 'react-native-firebase';
-import { Card, Button } from 'react-native-elements'
+import { Card, Button, Divider } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import DatePicker from 'react-native-datepicker';
 import { Picker } from 'native-base';
@@ -80,7 +80,7 @@ export default class App extends Component {
     render() {
        const d = this.state.seats.map((i,index)=>{
          
-          return  <Text   key={index}>{i}</Text> 
+          return  <Text style={{paddingLeft:10,fontSize:18,marginBottom:10,textAlign:'center'}}  key={index}>{i}</Text> 
         });
         //const {uid} =firebase.auth().currentUser;
         const { navigate } = this.props.navigation;
@@ -102,7 +102,9 @@ export default class App extends Component {
 
 
 
-                <Card title="My Ticket" containerStyle={{height:'80%'}}>
+                <Card title="My Ticket" containerStyle={{height:'70%',backgroundColor:'#eeeeee'}}
+                titleStyle={{fontSize:20,fontFamily:'Calibri'}}
+                dividerStyle={{backgroundColor:'purple',width:150,marginLeft:90}}>
                     {
                         <View >
                         {/* <View >
@@ -112,15 +114,16 @@ export default class App extends Component {
                          </View>
                         </View> */}
                         <View style={styles.list}>
-                         <Text style={{fontSize:18,marginBottom:10,textAlign:'center'}}>Name</Text>
-                        <Text style={{fontSize:18,marginBottom:10,textAlign:'center'}}>{this.state.name}</Text>
+                         <Text style={{fontSize:18,textAlign:'center'}}>Name</Text>
+                        <Text style={{fontSize:18,textAlign:'center'}}>{this.state.name}</Text>
                         </View>
+<Divider style={{backgroundColor:'purple',marginBottom:10}} />
 
                         <View style={styles.list}>
                         <Text style={{fontSize:18,marginBottom:10,textAlign:'center'}}>CNIC</Text>
                         <Text style={{fontSize:18,marginBottom:10,textAlign:'center'}}>{this.state.CNIC}</Text>
                         </View>
-
+                        <Divider style={{backgroundColor:'purple',marginBottom:10}} />
                         {/* <View style={styles.list}>
                         <Text style={{fontSize:18,marginBottom:10,textAlign:'center'}}>Seats</Text>    
                         <Text style={{fontSize:18,marginBottom:10,textAlign:'center'}}>{this.state.seats}</Text>
@@ -132,19 +135,23 @@ export default class App extends Component {
                         <Text style={{fontSize:18,marginBottom:10,textAlign:'center'}}>Date</Text>
                         <Text style={{fontSize:18,marginBottom:10,textAlign:'center'}}>{this.state.date}</Text>
                         </View>
-
+                        <Divider style={{backgroundColor:'purple',marginBottom:10}} />
                         <View style={styles.list}>
                         <Text style={{fontSize:18,marginBottom:10,textAlign:'center'}}>Source</Text>
                         <Text style={{fontSize:18,marginBottom:10,textAlign:'center'}}>{this.state.source}</Text>
                         </View>
-
+                        <Divider style={{backgroundColor:'purple',marginBottom:10}} />
                         <View style={styles.list}>
                         <Text style={{fontSize:18,marginBottom:10,textAlign:'center'}}>Destination</Text>
                         <Text style={{fontSize:18,marginBottom:10,textAlign:'center'}}>{this.state.destination}</Text>
                         </View>
-                        <View style={styles.list}>
+                        
+                        <Divider style={{backgroundColor:'purple',marginBottom:10}} />
+                        <View style={{flexDirection:'row'}}>
                         <Text style={{fontSize:18,marginBottom:10,textAlign:'center'}}>Seats</Text> 
+                        <View style={{marginLeft:165,flexDirection:'row'}}>
                        {d}
+                       </View>
                         </View>
 
 
@@ -165,7 +172,7 @@ export default class App extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        //backgroundColor: 'gray',
+        backgroundColor: 'white',
 
 
     },
@@ -182,12 +189,12 @@ const styles = StyleSheet.create({
     },
     list: {
         flexDirection: 'row',
-        backgroundColor: 'white',
+        backgroundColor:'#eeeeee',
         //justifyContent: 'center',
         flexWrap: 'wrap',
         paddingBottom: 20,
         alignContent: 'space-between',
-        justifyContent: 'space-between',
+        justifyContent: 'space-between'
     },
     listcontainer: {
         width: '80%',

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import {
     Image,
     Text, TouchableOpacity, FlatList, BackHandler,
-    BackHandlerBackHandler, TouchableHighlight, ListItem, RefreshControl,ScrollView,WebView,
+    BackHandlerBackHandler, TouchableHighlight, ListItem, RefreshControl,ScrollView,WebView,Modal,
     View, StatusBar, FlatListItem, StyleSheet, style, ActivityIndicator, ToastAndroid, BackAndroid,
 } from 'react-native';
 import firebase from 'react-native-firebase';
@@ -13,18 +13,24 @@ import DatePicker from 'react-native-datepicker';
 import { Picker, Item } from 'native-base';
 import {getDistance} from 'geolib';
 
+
+
+ const shippingname ='';
 export default class App extends Component {
 
 
     constructor(props) {
         super(props);
         this.state = {
+            count :true,modalVisible:true,
+           
             totalseats: this.props.navigation.state.params.total,
            
             myseats:this.props.navigation.state.params.myseats,
             fare : this.props.navigation.state.params.fare,
             t_id:this.props.navigation.state.params.t_id,
-            r_id :this.props.navigation.state.params.route_id,link:'',id:'',
+            r_id :this.props.navigation.state.params.route_id,
+            link:'',id:'',
             Address:'',Cnic:'',ContactNo:'',Penalties:[],date:'',name:'',panlitiespayment:[],route_id:'',seats:[],
             status:'',tracking_id:'',train_id:'',userid:'',email:'',
             slat: this.props.navigation.state.params.slat,
@@ -32,16 +38,18 @@ export default class App extends Component {
             dlat: this.props.navigation.state.params.dlat,
             dlng: this.props.navigation.state.params.dlng,
 
-
         };
-       
+        console.log("akfgf "+this.state.slat+"  "+this.state.fare);console.log(this.state.dlng);
         console.log(this.state.t_id);
         this.reg = firebase.firestore().collection('ticketreservedpassengers');
-        
+        this.referss = firebase.firestore().collection('route');
         this.pass= firebase.firestore().collection('passengers');
         const {uid} =firebase.auth().currentUser;
+
        this.pass.doc(uid).onSnapshot(query=>{
             console.log(query.data());
+            shippingname=query.data().name,
+
             this.setState({
                 Address:query.data().address,
                 Cnic:query.data().cnic,
@@ -49,7 +57,7 @@ export default class App extends Component {
                 // Penalties:'',
                 // date:'',
                 name:query.data().name,
-               // panlitiespayment:'',
+               
                 route_id:this.state.r_id,
                 seats:this.state.myseats,
                 // status:'',
@@ -64,6 +72,7 @@ export default class App extends Component {
 
 
             console.log(this.state.name);
+            console.log(shippingname);
            // this.add();
         });
 
@@ -72,6 +81,11 @@ export default class App extends Component {
 
         
         
+    }
+    componentWillUnmount(){
+      this.referss=false;
+      this.pass =false;
+      this.reg =false;
     }
 
     componentDidMount(){
@@ -131,7 +145,8 @@ export default class App extends Component {
             slat:this.state.slat,
             slng:this.state.slng,
             dlat:this.state.dlat,
-            dlng:this.state.dlng
+            dlng:this.state.dlng,
+            fare :this.state.fare
 
 
 
@@ -141,17 +156,29 @@ export default class App extends Component {
 
         alert('success');
     }
+    hide () {
+      this.setState({ modalVisible: false })
+      this.referss.doc(this.state.r_id).update({
+        reserved_seats : this.state.totalseats
 
+      });
+      ToastAndroid.show('updated',ToastAndroid.SHORT);
+
+      alert('Payment Scuccessfully');
+      this.props.navigation.navigate('Home1');
+    }
     async getMoviesFromApi() {
-        const d ="22.00";
+        const d =this.state.fare+".00";
         const ran =Math.random().toString(36).substring(2, 15);
-        const n =this.state.name;
+        const n =`${this.state.name}`
+        console.log(n);
+        const name = shippingname;
         try {
           let response = await fetch('https://api.sandbox.paypal.com/v1/payments/payment', {
             method: 'POST',
             headers: {
                 'Accept' :'application/json',
-              'Authorization': 'Bearer A21AAHnlYdflABoLWnMxhauvC70m6hq2ZFfyEdPkyo7eTiBV3g_8aM-K_Q4yd3yuLA4-rHO4WMnXtlg59FPIUuLE1lPS9Nz2w',
+              'Authorization': 'Bearer A21AAFcdhzVmqqkEW9ZfvOjsjMbMNmnQS4FLrdLZo8FL8oToXEJ59xvO2Zo4g9JBBIiIkGFjitwpK49kSX0ei5fAsy3HQf-9w',
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
@@ -196,7 +223,7 @@ export default class App extends Component {
                             
                           ],
                           "shipping_address": {
-                            "recipient_name": "Ali HAider",
+                            "recipient_name": shippingname,
                             "line1": "9th Floor",
                             "line2": "Unit #32",
                             "city": "San Jose",
@@ -224,7 +251,7 @@ export default class App extends Component {
           this.setState({link:responseJson.links[1].href,id:responseJson.id});
           console.log(this.state.link);
           console.log(this.state.id);
-          return responseJson.movies;
+          return responseJson;
         } catch (error) {
           console.error(error);
         }
@@ -239,7 +266,7 @@ export default class App extends Component {
             method: 'POST',
             headers: {
                 'Accept' :'application/json',
-              'Authorization': 'Bearer A21AAHnlYdflABoLWnMxhauvC70m6hq2ZFfyEdPkyo7eTiBV3g_8aM-K_Q4yd3yuLA4-rHO4WMnXtlg59FPIUuLE1lPS9Nz2w',
+              'Authorization': 'Bearer A21AAFcdhzVmqqkEW9ZfvOjsjMbMNmnQS4FLrdLZo8FL8oToXEJ59xvO2Zo4g9JBBIiIkGFjitwpK49kSX0ei5fAsy3HQf-9w',
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
@@ -254,12 +281,12 @@ export default class App extends Component {
           let responseJson = await response.json();
           console.log(responseJson);
          
-          // return responseJson.movies;
+           return responseJson;
         } catch (error) {
           console.error(error);
         }
         console.log("below is add");
-        this.add();
+       // this.add();
       }
   
       
@@ -272,10 +299,18 @@ export default class App extends Component {
         const payer_id = urlParams.get('PayerID');
         console.log(payer_id);
        
-        if (payer_id !=null){
-         this.payment(payer_id);
-   
-   
+        if (payer_id !=null && this.state.count){
+        let paid = this.payment(payer_id);
+          this.state.count =false;
+          if(paid != null){
+          
+           this.add();
+           this.hide();
+           
+           // alert('Paid');
+
+          }
+          
    
    
    
@@ -290,7 +325,13 @@ const {uid} =firebase.auth().currentUser;
 const { navigate } = this.props.navigation;
 const { params } = this.props.navigation;
 return (
-    
+  <Modal
+  animationType={'slide'}
+  visible={this.state.modalVisible}
+  onRequestClose={this.hide.bind(this)}
+  transparent
+>
+<View style={styles.container}>
     <WebView
     source={{uri: this.state.link}}
       style={{marginTop: 20}}
@@ -303,6 +344,8 @@ return (
          BackAndroid={true}
          BackHandler={true}
 />
+</View>
+        </Modal>
 
           
        

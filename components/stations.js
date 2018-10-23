@@ -66,20 +66,22 @@ export default class App extends Component {
 
     const d= this.state.stationData.map((y,i)=>{
 
-      return <Card key={y.st_name}  containerStyle={{width:'80%'}}  key={i}
+      return <Card key={y.st_name}  containerStyle={{width:'80%',backgroundColor:'#eeeeee'}}  key={i}
         title = {`${y.st_name}`}
       //  image={{uri:num.img}}
       >
         <View style={styles.list}>
-        <Text style={{fontSize:18,marginBottom:10,textAlign:'center'}}>Arrival</Text>
+        <Text style={{fontSize:18,textAlign:'center'}}>Arrival</Text>
       
-        <Text style={{fontSize:18,marginBottom:10,textAlign:'center'}}>{y.arrival}</Text>
+        <Text style={{fontSize:18,textAlign:'center'}}>{y.arrival}</Text>
         </View>
          
+        <Divider style={{ backgroundColor: 'purple',height: 2,marginBottom:10, }} />
+
           <View style={styles.list}>
-          <Text style={{fontSize:18,marginBottom:10,textAlign:'center'}}>Departure</Text>
+          <Text style={{fontSize:18,textAlign:'center'}}>Departure</Text>
           
-          <Text style={{fontSize:18,marginBottom:10,textAlign:'center'}}>{y.departure} </Text>
+          <Text style={{fontSize:18,textAlign:'center'}}>{y.departure} </Text>
           </View>
            
            
@@ -106,10 +108,10 @@ export default class App extends Component {
               </View>
               :
       <View style={styles.container}>
-        <Text style={{ fontSize: 25, marginBottom: 10, textAlign: 'center' }}>{this.state.trainName}</Text>
+        <Text style={{ fontSize: 25,color:'purple', marginBottom: 10, textAlign: 'center' }}>{this.state.trainName}</Text>
         <Text style={{
                   fontSize:20,
-                  color:'blue',
+                  color:'purple',
                   textAlign:'center'
                 }}>Stations</Text>
         <ScrollView style={styles.contentContainer}>
@@ -153,11 +155,11 @@ const styles = StyleSheet.create({
   },
   list: {
       flexDirection: 'row',
-      backgroundColor: 'white',
+      backgroundColor:'#eeeeee',
       justifyContent: 'space-between',
       flexWrap: 'wrap',
       paddingBottom: 20,
-      alignContent: 'space-between',
+      alignContent: 'space-between',marginBottom:2,
 
   },
   listcontainer: {

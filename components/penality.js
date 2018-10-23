@@ -5,7 +5,7 @@ import {
   Text, TouchableOpacity, FlatList, TouchableHighlight,ToolbarAndroid, ScrollView, RefreshControl, Image,
   View, StatusBar, FlatListItem, StyleSheet, style, ActivityIndicator, ToastAndroid
 } from 'react-native';
-import { Icon } from 'react-native-elements'
+import { Icon, Divider } from 'react-native-elements'
 import { List, ListItem } from 'react-native-elements';
 import {getDistance} from 'geolib';
 import firebase from 'react-native-firebase';
@@ -60,12 +60,13 @@ this.state.loading=false;
                     </View>
                     :
             <View style={styles.container}>
-            <Text style={{ fontSize: 25, color: 'white', marginBottom: 5, textAlign: 'center',color:'black' }}> Fine </Text>
+            <Text style={{ fontSize: 25, color: 'white', marginBottom: 5, textAlign: 'center',color:'white' }}> Fine </Text>
+            <Divider style={{backgroundColor:'white'}} />
             <View style={styles.list}>
-            <Text style={{ fontSize: 25, color: 'white', textAlign: 'center',color:'black' }}> Reason </Text>
-            <Text style={{ fontSize: 25, color: 'white', textAlign: 'center',color:'black' }}> Paid </Text>
+            <Text style={{ fontSize: 25, color: 'white', textAlign: 'center',color:'white' }}> Reason </Text>
+            <Text style={{ fontSize: 25, color: 'white', textAlign: 'center',color:'white' }}> Paid </Text>
             </View>
-            <ScrollView  style={{ height: 50, backgroundColor: 'powderblue'}}>
+            <ScrollView  style={{ height: 50, backgroundColor: '#eeeeee'}}>
             
                 <List   containerStyle={{ marginBottom: 20 }}>
              {
@@ -74,8 +75,10 @@ this.state.loading=false;
                          hideChevron={true}      
                          key={l}
                          title={l}
+                         titleStyle={{fontSize:20,fontFamily:'Calibri'}}
+                         containerStyle={{height:70,justifyContent:'center'}}
                          rightTitle={this.state.fine[index]}
-                         rightTitleStyle={{color:'red'}}
+                         rightTitleStyle={{color:'red',fontSize:20}}
                      />
                  ))
             }
@@ -102,11 +105,12 @@ const styles = StyleSheet.create({
         flex: 1,
         // justifyContent: 'center',
         // alignItems: 'center',
-         backgroundColor: 'white'
+         backgroundColor: 'white',
+         backgroundColor: '#455a64'
     },
     list: {
         flexDirection: 'row',
-        backgroundColor: 'white',
+        backgroundColor: '#455a64',
         justifyContent:'space-between',
         flexWrap: 'wrap',
         margin:10,

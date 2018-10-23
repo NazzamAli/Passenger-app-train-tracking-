@@ -81,8 +81,9 @@ export default class App extends Component {
 
         const d= this.state.stationData.map((y,index)=>{
     
-          return <Card key={y.st_name}  containerStyle={{width:'80%'}} key={index}
+          return <Card key={y.st_name}  containerStyle={{width:'80%',backgroundColor:'#eeeeee'}} key={index}
             title = {`${y.st_name}`}
+            dividerStyle={{backgroundColor:'purple'}}
           //  image={{uri:num.img}}
           >
             <View style={styles.list}>
@@ -123,7 +124,7 @@ export default class App extends Component {
             <Text style={{ fontSize: 25, marginBottom: 10, textAlign: 'center' }}>{this.state.trainName}</Text> 
             <Text style={{
                       fontSize:20,
-                      color:'blue',
+                      color:'purple',
                       textAlign:'center'
                     }}>Stations</Text>
             <ScrollView style={styles.contentContainer}>
@@ -168,7 +169,7 @@ export default class App extends Component {
         },
         list: {
             flexDirection: 'row',
-            backgroundColor: 'white',
+            backgroundColor:'#eeeeee',
             justifyContent: 'space-between',
             flexWrap: 'wrap',
             paddingBottom: 20,

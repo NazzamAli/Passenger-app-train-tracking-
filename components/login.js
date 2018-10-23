@@ -10,6 +10,13 @@ import { Toast } from 'native-base';
  export {trp_id};
  const r_id='';
  export {r_id} ;
+ const slat=''; 
+ const slng='';
+ const dlat ='';
+ const dlng ='';
+ export {slat};export {slng};export {dlat};export {dlng};
+
+
  export default class App extends Component {
 
     constructor(props){
@@ -39,7 +46,7 @@ import { Toast } from 'native-base';
       firebase.auth().signInAndRetrieveDataWithEmailAndPassword(this.state.email,this.state.pass)
       .then((user)=>{
         //console.log(this.state.email+""+this.state.pass);
-        this.setState({email:'',pass:''});
+       // this.setState({email:'',pass:''});
         this.props.navigation.navigate('Home1');
       }).catch((error)=>{
         alert(error);
@@ -60,6 +67,10 @@ import { Toast } from 'native-base';
        
          trp_id=doc.id;
          r_id=doc.data().route_id;
+          slat =doc.data().slat;
+          slng=doc.data().slng;
+          dlat=doc.data().dlat;
+          dlng=doc.data().dlng;
        
         this.setState({routeId : doc.data().route_id});
         this.setState({tp : doc.id});

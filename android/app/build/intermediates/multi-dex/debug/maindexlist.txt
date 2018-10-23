@@ -128,6 +128,8 @@ android/support/v7/graphics/drawable/DrawerArrowDrawable$ArrowDirection.class
 android/support/v7/view/menu/CascadingMenuPopup$HorizPosition.class
 android/support/v7/widget/LinearLayoutCompat$DividerMode.class
 android/support/v7/widget/LinearLayoutCompat$OrientationMode.class
+com/RNFetchBlob/RNFetchBlobPackage.class
+com/airbnb/android/react/maps/MapsPackage.class
 com/facebook/common/internal/DoNotStrip.class
 com/facebook/common/internal/Objects.class
 com/facebook/common/internal/VisibleForTesting.class
@@ -264,12 +266,14 @@ com/google/firebase/firestore/IgnoreExtraProperties.class
 com/google/firebase/firestore/PropertyName.class
 com/google/firebase/firestore/ServerTimestamp.class
 com/google/firebase/firestore/ThrowOnExtraProperties.class
+com/google/firebase/storage/StorageException$ErrorCode.class
 com/google/gson/annotations/Expose.class
 com/google/gson/annotations/JsonAdapter.class
 com/google/gson/annotations/SerializedName.class
 com/google/gson/annotations/Since.class
 com/google/gson/annotations/Until.class
 com/google/protobuf/ExperimentalApi.class
+com/imagepicker/ImagePickerPackage.class
 com/mynewapp/BuildConfig.class
 com/mynewapp/MainApplication$1.class
 com/mynewapp/MainApplication.class
@@ -301,6 +305,7 @@ io/grpc/internal/WithLogId.class
 io/invertase/firebase/RNFirebasePackage.class
 io/invertase/firebase/auth/RNFirebaseAuthPackage.class
 io/invertase/firebase/firestore/RNFirebaseFirestorePackage.class
+io/invertase/firebase/storage/RNFirebaseStoragePackage.class
 io/opencensus/common/ExperimentalApi.class
 io/opencensus/common/Internal.class
 javax/annotation/CheckForNull.class

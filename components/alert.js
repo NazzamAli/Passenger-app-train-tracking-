@@ -14,7 +14,6 @@ import {getDistance} from 'geolib';
 import Sound from 'react-native-sound';
 
 
-
 array=[];
 
 export default class Alert extends Component {
@@ -27,11 +26,9 @@ export default class Alert extends Component {
             selected: '',geo:'',
             date: '', array:[],
             trainroute_id:'', loading : true ,refreshing:false,station: [], stationData: [],toggle:false,
-            routeId:this.props.navigation.state.params.id,
-            tp_i:this.props.navigation.state.params.tpi
+            routeId:'yHvkhelq6ttixZSRX7Vr'
         };
-        console.log(this.state.tp_i);
-
+        
         this.ref = firebase.firestore().collection('route');
         this.refer =firebase.firestore().collection('trainroutes');
         this.referr =firebase.firestore().collection('ticketreservedpassengers');
@@ -55,7 +52,7 @@ this.whoosh.setNumberOfLoops(0);
     }
     componentDidMount() {
 
-        this.referr.doc(`${this.state.tp_i}`).onSnapshot(query=>{
+        this.referr.doc('6EbQJSqWTN9MOiQHPJoq').onSnapshot(query=>{
             console.log(query.data().Alarms);
           
            
@@ -160,7 +157,7 @@ this.whoosh.setNumberOfLoops(0);
                 });
             }
         })
-            this.referr.doc(`${this.state.tp_i}`).update({Alarms:array });
+            this.referr.doc('6EbQJSqWTN9MOiQHPJoq').update({Alarms:array });
         
     }
 
@@ -212,7 +209,7 @@ add =()=>{
     // console.log(array);
   
 
-    this.referr.doc(`${this.state.tp_i}`).update({ Alarms:array});
+    this.referr.doc('6EbQJSqWTN9MOiQHPJoq').update({ Alarms:array});
    
 
     
@@ -318,8 +315,7 @@ add =()=>{
 
                                 onPress={this.add}
                             />
-                            <Text>{this.state.routeId}</Text>
-                            
+                           
                             </View>
                         </View>
 

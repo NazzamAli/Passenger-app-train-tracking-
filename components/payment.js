@@ -31,11 +31,15 @@ export default class App extends Component {
             date:this.props.navigation.state.params.date,
         };
        
-        console.log(this.state.t_id);
+       
         this.ref = firebase.firestore().collection('route');
         this.refer =firebase.firestore().collection('trainroutes');
       
         
+    }
+    componentWillUnmount(){
+        this.ref=false;
+        this.refer = false;
     }
 
     componentDidMount(){
@@ -44,7 +48,7 @@ export default class App extends Component {
             query.forEach(doc=>{
             
               this.setState({trainroute_id:doc.data().trainroute_id});
-                console.log(this.state.trainroute_id);
+               
               this.GetData();
             });
            });
@@ -55,7 +59,7 @@ export default class App extends Component {
            
               this.setState({station:query.data().stations});
     
-              console.log(this.state.station);
+              
       
             this.Data();
           });
@@ -79,7 +83,7 @@ export default class App extends Component {
             
 
             this.setState({ stationData: name });
-            console.log(this.state.stationData);
+           
            // this.add();
           });
          
@@ -90,26 +94,27 @@ export default class App extends Component {
     }
     fare=()=>{
         const { navigate } = this.props.navigation;
-        console.log(this.state.selected1);
-        console.log(this.state.selected2);
-        if(this.state.selected1 == "" || this.state.selected2 == ""){
+       
+        if(this.state.selected1 === "" && this.state.selected2 == ""){
             ToastAndroid.show("Please Select Source And Destination",ToastAndroid.SHORT);
         }
-        // else  if(this.state.selected1 != "" || this.state.selected2 == ""){
-        //     ToastAndroid.show("Please Select Source And Destination",ToastAndroid.SHORT);
+        if(this.state.selected1 !== "" && this.state.selected2 === ""){
+             ToastAndroid.show("Please Select Source And Destination",ToastAndroid.SHORT);
            
-        // }
-        // else  if(this.state.selected1 == "" || this.state.selected2 !== ""){
-        //     ToastAndroid.show("Please Select Source And Destination",ToastAndroid.SHORT);
+         }
+         if(this.state.selected1 === "" && this.state.selected2 !== ""){
+             ToastAndroid.show("Please Select Source And Destination",ToastAndroid.SHORT);
             
-        // }
-        // else  if(this.state.selected1 !== "" || this.state.selected2 !== ""){
-        //     navigate('Seats');
-        // }
-        else {
+         }
+       
+         if(this.state.selected1 !== "" && this.state.selected2 !== "") {
+          
+            if(this.state.selected1 === this.state.selected2 || this.state.selected2 === this.state.selected1) {
+                ToastAndroid.show("Source And Destination Cannot Be Same",ToastAndroid.SHORT);
+            
+            }
+            else {
 
-            console.log(this.state.selected1);
-            console.log(this.state.selected2);
             const a =this.state.selected1.split(',');
             const b =this.state.selected2.split(',');
 
@@ -122,16 +127,16 @@ export default class App extends Component {
             {latitude:a[0], longitude: a[1]},
             {latitude:b[0], longitude: b[1]}
             );
-            console.log(`distance ${dist}`);
+           
 
             const dis =geolib.convertUnit('km',dist);
-            const fare = dis*3;
+            const fare = parseInt(dis*0.03);
             this.setState({fare:fare});
-            console.log(`fare ${fare} in kn ${dis}`);
+           
        
             navigate('Seats',{train:this.state.t_id,date:this.state.date,fare:fare,slat:lat1,slng:lng1,dlat:lat2,dlng:lng2});
 
-
+           }
 
         }
        
@@ -148,17 +153,15 @@ const {uid} =firebase.auth().currentUser;
 const { navigate } = this.props.navigation;
 const { params } = this.props.navigation;
 return (
-    <View>
-    <View >
+    <View style={styles.container}>
     
-       <Text>{this.state.myseats} </Text>
-       <Text>{this.state.totalseats}</Text>
-       
-    </View>
-    <Button onPress={()=>navigate('Practice')}/>
+   
                         
 
-                        <Card title="Select source and destination" containerStyle={{height:'60%'}}>
+                        <Card title="Select source and destination" containerStyle={{height:'50%',backgroundColor:'#eeeeee'}}
+                          dividerStyle={{backgroundColor:'black',marginBottom:30}}
+                            titleStyle={{fontSize:18}}
+                        >
                            
                        
                         <View style={styles.list}>                    
@@ -166,8 +169,9 @@ return (
                             <Picker                              
                                 mode="dropdown"
                                 placeholder='Select'                               
-                               style={{ width: 100,height:20, }}
-                              
+                                style={{   width: 10,height:20,marginLeft:135 }}
+                                itemStyle={{alignItems:'center',alignContent:'center',alignItems:'center'}}
+                                itemTextStyle={{alignItems:'center',alignContent:'center',alignItems:'center'}}
                                 selectedValue={this.state.selected1}
                                 onValueChange={i => {this.setState({selected1:i})}}
                             >
@@ -185,18 +189,20 @@ return (
 
 
 
-                             <Divider></Divider>   
+                             
 
                               <View style={styles.list}>
                             <Text  style={{ fontSize: 15, color: 'red', marginBottom: 5, textAlign: 'center' }}>Destination</Text>
                             <Picker                              
                                 mode="dropdown"
                                 placeholder='Select'                               
-                                style={{   width: 10,height:20, }}
+                                style={{   width: 10,height:20,marginLeft:106 }}
                                 selectedValue={this.state.selected2}
                                 onValueChange={i => {this.setState({selected2:i})}}
                             >
-                              <Picker.Item label="Select" value="" />
+                              <Picker.Item label="Select" value="" 
+                                  
+                              />
                             {
                                 this.state.stationData.map((i,index)=>{
                                 return  <Picker.Item key={index} label= {`${i.name}`} value={`${i.lat},${i.lng}`} />
@@ -222,23 +228,7 @@ return (
                             </Card>
 
 
-                        <View>  
-                            {this.state.loading
-                                ?
-
-                                <Card>
-
-                                    <Text>{uid}</Text>
-
-                                </Card>
-
-                                :
-                                <View>
-
-                                </View>}
-
-                       
-                        </View>
+                    
     </View>
 );
 }
@@ -250,7 +240,7 @@ return (
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        //backgroundColor: 'gray',
+        backgroundColor: 'white',
 
 
     },
@@ -271,6 +261,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         flexWrap: 'wrap',
         paddingBottom: 20,
+        backgroundColor:'#eeeeee',
+        marginBottom:10
 
     },
     listcontainer: {

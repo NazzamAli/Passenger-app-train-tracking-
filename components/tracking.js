@@ -1,10 +1,19 @@
 import React,{Component} from 'react';
+
 import MapView,{Marker, Circle} from 'react-native-maps';
 import {Text,View,Switch,Dimensions} from 'react-native';
 import { PermissionsAndroid } from 'react-native';
 import firebase from 'react-native-firebase';
 import getDistance from 'geolib';
 import { Icon, Button } from 'react-native-elements';
+
+
+import {slat} from './login';
+import {slng} from './login';
+import {dlat} from './login';
+import {dlng} from './login';
+
+
 
 const {width,height} = Dimensions.get('window')
 const SCREEN_HEIGHT = height
@@ -14,22 +23,25 @@ const LATITUDE_DELTA = 7.0432
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 var citiesDataDistanceTemp = [];
 var trainsDataDistanceTemp = [];
-var queryData = [];    
+var queryData = [];  
+  
 var id = 0; 
 const firstLoad = true;
 export default class PassengerMap extends Component {
  
     constructor(props){
         super(props);
+
         this.state = {
-            // citiesData:[{
-            //     train_id : '',
-            //     city_name : '',
-            //     coordinates:{
-            //     latitude : 0,
-            //     longitude : 0,
-            //     }
-            // }],
+           routeId:this.props.navigation.state.params.id,
+
+            citiesData:[{
+                id : '',
+                name : '',
+                lat : 0,
+                lng : 0,
+                
+            }],
             initialPosition: {
                 latitude : 0,
                 longitude : 0,
@@ -41,20 +53,33 @@ export default class PassengerMap extends Component {
                 longitude: 0,
             },
             trains:[{
-                longitude : 0,
-                latitude : 0
+                longitude : 73,
+                latitude : 24
             }],
-            // citiesTime : [],
-            // speed : 0,
-            passengerStation : [],
+            citiesTime : [],
+            speed : 0,
             trainsDataDistance : [],
-            // citiesDataDistance : []
-          
+            citiesDataDistance : []
             
         }
-
-        this.trainref = firebase.firestore().collection('trains');
         
+        console.log(this.state.routeId+"  lnjjnjn"+ slat);
+        
+        this.citiesref = firebase.firestore().collection('cities');
+        this.trainrouteref = firebase.firestore().collection('trainroutes');
+        this.routeref = firebase.firestore().collection('route');
+        this.trainref = firebase.firestore().collection('trains');      
+
+        const a = geolib.getDistance(
+            {latitude: this.state.trains[0].longitude, longitude: this.state.trains[0].latitude},
+            {latitude: dlat, longitude: dlng}
+        );
+
+         bb =geolib.convertUnit('km', a, 2)
+
+        console.log("trainsjb"+ a +" in km" +bb);
+
+
 
         // this.state = {
         //     markers: [{
@@ -72,8 +97,9 @@ export default class PassengerMap extends Component {
         //       },  
         //     }]
         //   }
-           
+
     }
+
 
     componentDidMount(){
 
@@ -88,7 +114,7 @@ export default class PassengerMap extends Component {
                 //     } 
                 // })
         //     })
-            
+
 
             // this.setState({
             //     cities : queryData
@@ -104,212 +130,183 @@ export default class PassengerMap extends Component {
             //    })
            
                //})             
-            // this.state.citiesData.length = 0;
-            // //    console.log(this.unsubscribe);
-            // var date =new Date();
-            // let year=date.getFullYear();
-            // let month=("0" + (date.getMonth() + 1)).slice(-2);
-            // let day=("0" + date.getDate()).slice(-2);
-            // console.log("DUTY Year "+year+" Month "+month+" DAy "+day);
-            // console.log(this.props.myPropDriver);
-            
-            this.citiesref = firebase.firestore().collection('cities');
-            this.train = firebase.firestore().collection('trains');
-            this.routeref = firebase.firestore().collection('route');
-            this.unsubscribe = this.routeref.doc('yHvkhelq6ttixZSRX7Vr').onSnapshot(query1 => {
+      
+             
+            //    console.log(this.unsubscribe);
+        
+        
+
+            this.unsubscribee = this.routeref.doc(this.state.routeId).onSnapshot(query1 => {
    
                 
-                    // console.log("in train route id"+ '' + d1._data.train_id )
-                    // train_data.push({
-                    //     train_id : d1._data.train_id
-                    // })
-                     
-             
-                    this.train.doc(query1.data().train_id).onSnapshot(query2 => {
-                        
-                                
-                                queryData.push({
-                                    latitude : query2.data().Latitude,
-                                    longitude : query2.data().Longitude,
-                                })       
-                                
-                                this.setState({trains : queryData})
-                    })
+                // console.log("in train route id"+ '' + d1._data.train_id )
+                // train_data.push({
+                //     train_id : d1._data.train_id
+                // })
+                 
+         
+                this.trainref.doc(query1.data().train_id).onSnapshot(query2 => {
                     
+                            console.log(query2.data().Latitude)
+                            queryData.push({
+                                latitude : query2.data().Latitude,
+                                longitude : query2.data().Longitude,
+                            })       
+                            
+                            this.setState({trains : queryData})
                 })
                 
-
-            
-            
-            // this.routeref.where('driver_id','==','ZSttE9z6Vjdg4KhLsB7v').onSnapshot(query1 => {
-   
-            //     query1.docs.forEach(d1 =>{
-
-            //         train_data : {
-            //             train_id : d1._data.train_id
-            //         }
-
-            //     })
-            // })
-            
-            // this.unsubscribeagain = this.trainref.onSnapshot(query => {
-            //     const queryData = [];     
-            //     query.forEach(doc => {
-            //         queryData.push({
-            //         id : doc.id,    
-            //         Train_No : doc.data().Train_No,
-            //         name : doc.data().name,
-            //         Latitude : doc.data().Latitude,
-            //         Longitude : doc.data().Longitude
-            //         });
-            //       });
-            //       this.setState({
-            //         trains : queryData
-            //       });            
-            //         });
-
-                    // setInterval(()=> {
-                    // navigator.geolocation.getCurrentPosition(
-                    //     position => {
-
-
-                    //         var lat = position.coords.latitude;
-                    //         var long = position.coords.longitude;  
-                    //         var speed = position.coords.speed
-
-                    //         this.setState({speed : speed})
-                    //     })
-                    // },1000)
-                    
-                    
-                //     setInterval(()=>{
-                    
-                //      citiesDataDistanceTemp.length = 0;
-                //      trainsDataDistanceTemp.length = 0;
-                //      trainsInfoPassingTemp = [];
-                //      trainsInfoTemp = [];
-                //      citiesTime = []
-                     
-                //     navigator.geolocation.getCurrentPosition(
-                //         position => {
-
-
-                //             var lat = position.coords.latitude;
-                //             var long = position.coords.longitude;  
-                //             var speed = position.coords.speed;
-
-                            
-
-                //             // alert(speed);
-                //             this.setState({speed : speed})
-                //             var initialRegion = {
-                //                 latitude : lat,
-                //                 longitude : long,
-                //                 latitudeDelta : LATITUDE_DELTA,
-                //                 longitudeDelta : LONGITUDE_DELTA,
-                //             }
-
-                //     //        this.getDistance(lat,long);
-
-                //             this.setState({initialPosition : initialRegion});
-                //             this.setState({markerPosition : initialRegion});
-
-                //             this.state.citiesData.map((marker,index)=>{
-                //             const a = geolib.getDistance(position.coords, {
-                //             latitude: marker.coordinates.latitude,
-                //             longitude: marker.coordinates.longitude
-                //             });
-                //             const b = geolib.convertUnit('km', a, 2)
-                //             var time = 0;
-                //             var data = 0;
-                //             if(this.state.speed == 0){
-                //             const t =  (70 * 60)
-                //             time = a / t;
-                //             time = 3.6 * time;
-                //             }else{
-                //             const t =  (this.state.speed * 60)
-                //             time = a / t;
-                //             time = 3.6 * time;
- 
-                //             }
-                //             console.log("time"+ '' +time)
-                //             citiesTime.push(time);
-                //             citiesDataDistanceTemp.push(b);
-                //         })
-
-                //         this.state.trains.map((marker,index)=>{
-                //             const a = geolib.getDistance(position.coords, {
-                //                 latitude: marker.Latitude,
-                //                 longitude: marker.Longitude
-                //             });
-                            
-                //             console.log(a);
-                //             const b = geolib.convertUnit('km', a, 2);
-                //             console.log("d" + '' +b);
-                //             console.log('info' + ''+marker)
-                //             trainsDataDistanceTemp.push(b);
-                //             trainsInfoTemp.push(marker);
-                //         })
-                        
-                //         if(LATITUDE_DELTA != 0.1022){
-                //                 LATITUDE_DELTA = 7.0432;  
-                //                 LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;    
-                //         }      
-                       
-                //         trainsDataDistanceTemp.map((i,index) => {
-                //             if(i < 15 && id != trainsInfoTemp[index].id ){  
-                                
-                //                 LATITUDE_DELTA = 0.4522;  
-                //                 LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;                            
-                //                 console.log(trainsInfoTemp[index]);
-                //                 trainsInfoPassingTemp.push(trainsInfoTemp[index]); 
-                //             }
-                            
-                //         })
-                //         this.setState({citiesDataDistance : citiesDataDistanceTemp})
-                //         this.setState({trainsDataDistance : trainsInfoPassingTemp})
-                //         this.setState({citiesTime : citiesTime})
-
-                //         this.trainref.doc(id).update({
-                //             Longitude : position.coords.longitude,
-                //             Latitude : position.coords.latitude
-                //         })
-                        
-                //         },
-                //         function() {
-                //             alert('Position could not be determined.')
-                //         },
-                //         {
-                //             enableHighAccuracy: true
-                //         }
-                //     );
-
-                // },3000)
-
-                // this.state.citiesDataDistance.forEach(i=>{
-                //     console.log(i)
-                // })
-
-
-
-                    
-
-       }
-
-       onpresszoomin(){
-           alert("zoom in")
-        LATITUDE_DELTA = 0.1022;  
-        LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;    
-       }
-       onpresszoomout(){
-        LATITUDE_DELTA = 7.0432;  
-        LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;    
-       }
-       componentWillMount(){
+            })
     
-          
+                // setInterval(()=> {
+                // navigator.geolocation.getCurrentPosition(
+                //     position => {
 
+
+                //         var lat = position.coords.latitude;
+                //         var long = position.coords.longitude;  
+                //         var speed = position.coords.speed
+
+                //         this.setState({speed : speed})
+                //     })
+                // },1000)
+                
+                
+                
+             // this.firestore()
+
+            // this.state.citiesDataDistance.forEach(i=>{
+            //     console.log(i)
+            // })
+
+
+            this.routeref.doc(this.state.routeId).onSnapshot(query=>{
+                // console.log(query.data());
+                
+                
+                  this.setState({trainroute_id:query.data().trainroute_id});
+                //  console.log(this.state.trainroute_id);
+                  this.GetData();
+                //  this.GetFoodItems();
+               });
+             
+             
+           }
+   
+   
+           GetData() {
+             this.trainrouteref.doc(this.state.trainroute_id).onSnapshot(query=>{
+                
+                   this.setState({station:query.data().stations});
+         
+                   console.log(this.state.station);
+           
+                 this.Data();
+               });
+           }
+         
+   
+   
+           Data() {
+             var name = [];
+         
+             for (const i = 0; i < this.state.station.length; i++) {
+               var documentReference = firebase.firestore().collection('cities').doc(this.state.station[i]);
+               documentReference.get().then(documentSnapshot => {
+                 // check and do something with the data here.
+                 name.push({
+                   name: documentSnapshot.data().station_name,
+                   lat: documentSnapshot.data().lat,
+                   lng: documentSnapshot.data().lng,
+                   id :documentSnapshot.id,
+                 });
+                 
+     
+                 this.setState({ citiesData: name });
+                 console.log(this.state.citiesData);
+                // this.add();
+               });
+              
+             }
+             console.log(this.state.citiesData);
+             
+             this.firestore()
+     
+     
+         }
+     
+                
+
+   
+        
+
+
+
+       firestore(){
+        citiesDataDistanceTemp.length = 0;
+        citiesTime = []
+        
+
+
+
+    //            var lat = event.coordinate.latitude;
+    //            var long = event.coordinate.longitude;  
+    //            var speed = event.coordinate.speed;
+
+               
+
+    //            // alert(speed);
+    //            this.setState({speed : speed})
+    //            var initialRegion = {
+    //                latitude : lat,
+    //                longitude : long,
+    //                latitudeDelta : LATITUDE_DELTA,
+    //                longitudeDelta : LONGITUDE_DELTA,
+    //            }
+
+    //    //        this.getDistance(lat,long);
+
+    //            this.setState({initialPosition : initialRegion});
+    //            this.setState({markerPosition : initialRegion});
+    //            this.whoosh.pause();            
+               
+               this.state.citiesData.map((marker,index)=>{
+                   console.log(this.state.trains[0].latitude)
+               const a = geolib.getDistance({
+                latitude : this.state.trains[0].latitude,
+                longitude : this.state.trains[0].longitude
+                }, {
+               latitude: marker.lat,
+               longitude: marker.lng
+               });
+               console.log(a)
+               const b = geolib.convertUnit('km', a, 2)
+               var time = 0;
+               if(this.state.speed == 0){
+               const t =  (70 * 60)
+               time = a / t;
+               time = 3.6 * time;
+               }else{
+               const t =  (this.state.speed * 60)
+               time = a / t;
+               time = 3.6 * time;
+               }
+               console.log("time"+ '' +time)
+               citiesTime.push(time);
+               citiesDataDistanceTemp.push(b);
+           })
+
+           if(LATITUDE_DELTA != 0.0030){
+                   LATITUDE_DELTA = 7.0432;  
+                   LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;    
+                  
+           }     
+           this.setState({citiesDataDistance : citiesDataDistanceTemp})
+           this.setState({citiesTime : citiesTime})
+     
         }
+
+
     
 //     render(){       
        
@@ -368,6 +365,12 @@ export default class PassengerMap extends Component {
 //     }
 // }
 
+
+// _handleMapRegionChange = mapRegion => {
+//     this.setState({ initialPosition : mapRegion });
+//   };
+
+
 render(){
 
     // this.state.citiesDataDistance.forEach(
@@ -377,7 +380,6 @@ render(){
     // )
     // this.citiesETA.forEach(m => console.log(m.distance))
 
-//console.log(this.state.initialPosition.latitude);
 return(
     
     // <View style={styles.h}>
@@ -389,7 +391,7 @@ return(
     flexDirection : 'row',
     }}>
 <View style={styles.mapStyle}>
-
+  
         <MapView style={styles.maps}
             // region={{
             // latitude:33.6844,
@@ -402,35 +404,58 @@ return(
                 latitudeDelta : LATITUDE_DELTA,
                 latitude : this.state.trains[0].latitude,
                 longitude : this.state.trains[0].longitude
-            }}                
-            showsUserLocation={true}
+            }}              
+            // showsUserLocation={true}
              //followUserLocation={true}
             zoomEnabled={true}
             loadingEnabled = {true}
+            //onRegionChange={this._handleMapRegionChange}
+            // onUserLocationChange={event => this.firestore(event.nativeEvent)}
             
         >
         <Marker 
-        coordinate={{
-            latitude : this.state.trains[0].latitude,
-            longitude : this.state.trains[0].longitude
-        }}
+        coordinate={{latitude : this.state.trains[0].latitude,
+                longitude : this.state.trains[0].longitude}}
         title='your own'
         >
             <Icon
                  name='train' />
 
-        </Marker>
-        <Marker 
-        coordinate={{
-            latitude :33.6844 ,
-            longitude :73.0479 
-        }}
-        title='Islamabad'
-        >
-            <Icon
-                 name='train' />
+
+              <MapView.Callout style={{backgroundColor : 'green'}}   tooltip={true} flat={true}>
+
+<Text key={bb} style={{color:'#fff'}} >dis  { bb }</Text>
+
+
+</MapView.Callout>     
 
         </Marker>
+
+           <Marker 
+        coordinate={{latitude : parseFloat(slat),
+                longitude : parseFloat(slng)}}
+        title='your stop'
+        >
+            
+
+
+              <MapView.Callout style={{backgroundColor : 'red'}}   tooltip={true} flat={true}>
+
+<Text key={bb} style={{color:'#fff'}} > { bb }</Text>
+
+
+</MapView.Callout>     
+
+        </Marker>
+        {/* <Circle
+        center = {this.state.markerPosition}
+        radius = {30}
+        fillColor = 'rgba(100,150,255,0.5)'
+        
+        >
+
+        </Circle> */}
+        
         {/* <MapViewDirections
             origin={this.state.markerPosition}
             destination={destination}
@@ -442,44 +467,38 @@ return(
         >
         </MapViewDirections>
          */}
-    {/* {this.state.citiesData.map((marker,index) => 
+         {this.state.citiesData.map((marker,index) => 
     (
             <MapView.Marker 
-            coordinate={{latitude : marker.coordinates.latitude,
-                          longitude : marker.coordinates.longitude}}
-            title={marker.city_name}
+            coordinate={{latitude : marker.lat,
+                          longitude : marker.lng}}
+            title={marker.name}
             pinColor = 'green'
             key = {index}
             >
         
         <MapView.Callout style={{backgroundColor : 'green'}}  key={index} tooltip={true} flat={true}>
 
+            <Text key={marker.name} style={{color:'#fff'}} > { marker.name }</Text>
             <Text key={this.state.citiesDataDistance[index]} style={{color:'#fff'}} > { this.state.citiesDataDistance[index] } km</Text>
             <Text key={this.state.citiesTime[index]} style={{color:'#fff'}} > { this.state.citiesTime[index] } Minutes</Text>
-
-        </MapView.Callout>
-
             
+
+     
+     </MapView.Callout>
+
+
+
+            {/* <MapCallout Distance = {this.citiesETA}>
+            </MapCallout>
+         */}
     </MapView.Marker>
-        ))} */}
+        ))}
 
-   {/* {this.state.trainsDataDistance.map((marker,index) => 
-   (
-            <MapView.Marker 
-            key={index} coordinate={{latitude : marker.Latitude,longitude:marker.Longitude}}
-            >
-            
-            <MapView.Callout style={{backgroundColor : 'red'}} key={index} tooltip={true} flat={true}>
-            <Text key={marker.name} style={{color:'#fff'}} > { marker.name } </Text>
-            <Text key={marker.Train_No} style={{color:'#fff'}} > { marker.Train_No } </Text>
-            </MapView.Callout>
-
-            </MapView.Marker>
-            ))}
         </MapView>   
 
 
-      </View> */}
+      </View>
     
         {/* <NextStation
         stationsDistanceData = {this.state.citiesDataDistance}
@@ -495,13 +514,7 @@ return(
             })} */}
         {/* <TrainAccidentAlert currentLocation={this.state.markerPosition} train_id_data = {this.state.citiesData}></TrainAccidentAlert>
      */}
-     {/* <View style={styles.container}>
-        <Button title='zoom-in' backgroundColor = '#000'  borderRadius = {5} fontSize = {10} onPress = {this.onpresszoomin.bind(this)}></Button>
-        <Text style={{fontSize : 10, color : '#fff', fontWeight : '100'  }}>Speed : {this.state.speed} </Text>
-        <Button title='zoom-out' backgroundColor = '#000'  borderRadius = {5} fontSize = {10} onPress = {this.onpresszoomout.bind(this)}></Button>
-    </View> */}
-    </MapView>
-    </View>
+     
 </View>
 
     );
@@ -538,7 +551,7 @@ TextStyle:{
    
            width: width, 
            height: 70, 
-           backgroundColor: '#525B56', 
+           backgroundColor: 'silver', 
            justifyContent: 'space-between', 
            alignItems: 'center',
            position: 'absolute',

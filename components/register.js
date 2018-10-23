@@ -12,7 +12,10 @@ import  firebase from 'react-native-firebase';
       name :'',
       cnic :'',
       email : '',
-      pass : ''
+      pass : '',
+      contact:'',
+      address :''
+     
     }
     static navigationOptions = {
         header :null
@@ -26,25 +29,7 @@ import  firebase from 'react-native-firebase';
           console.log("User data return "+user);
           
           this.add();
-          // this.ref = firebase.firestore().collection('passengers').add({
-          // name :this.state.name,
-          // cnic :this.state.cnic,
-          // email :this.state.email,
-          // pass : this.state.pass,
-          
          
-          // })
-          // .then((user)=>{
-          //   alert("successfull added");
-          //   add();
-          //   this.setState({
-          //     name: '',
-          //     cnic: '',
-          //     email: '',
-          //     pass: ''
-          // });
-          // });
-          // this.props.navigation.navigate('Login');
         }).catch((error)=>{
           
           console.log(error);
@@ -62,6 +47,9 @@ import  firebase from 'react-native-firebase';
                 cnic :this.state.cnic,
                 email :this.state.email,
                 pass : this.state.pass,
+                img : '',
+                contact:this.state.contact,
+                address:this.state.address,
               userid:firebase.auth().currentUser.uid});
           alert("successfull added");
           this.props.navigation.navigate('Login');
@@ -138,6 +126,39 @@ import  firebase from 'react-native-firebase';
                 }
 
                 />  
+            <TextInput style={styles.inputBox} 
+                underlineColorAndroid='rgba(0,0,0,0)' 
+                placeholder="Contact No."
+                
+                placeholderTextColor = "#ffffff"
+                selectionColor="#fff"
+                onChangeText = {
+                  (text) =>{
+                    this.setState({contact:text});
+                  }
+                }
+
+                />  
+
+            <TextInput style={styles.inputBox} 
+                underlineColorAndroid='rgba(0,0,0,0)' 
+                placeholder="Address"
+               
+                placeholderTextColor = "#ffffff"
+                selectionColor="#fff"
+                onChangeText = {
+                  (text) =>{
+                    this.setState({address:text});
+                  }
+                }
+
+                />      
+
+
+
+
+
+
             <TouchableOpacity style={styles.button}
             onPress={this.onRegister}>
             
