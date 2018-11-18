@@ -21,6 +21,7 @@ export default class App extends Component {
         this.state = {
             //totalseats: this.props.navigation.state.params.total,
             stationData:[],selected1:'',loading:true,
+            train_seats:'',
             //myseats:this.props.navigation.state.params.myseats,
             station:[],selected2:'',
             array:[],co:true,data:[],
@@ -30,43 +31,64 @@ export default class App extends Component {
 
             date:this.props.navigation.state.params.date,
         };
-       
+       this.mounted = true ;
        
         this.ref = firebase.firestore().collection('route');
         this.refer =firebase.firestore().collection('trainroutes');
-      
+        this.refrs =firebase.firestore().collection('trains');
         
     }
     componentWillUnmount(){
-        this.ref=false;
-        this.refer = false;
+        this.ref=null;
+        this.mounted =false ;
+        this.refrs =null;
+        this.refer = null;
     }
 
     componentDidMount(){
-        this.ref.where('train_id','==',this.state.t_id).onSnapshot(query=>{
-            // console.log(query.data());
-            query.forEach(doc=>{
+
+this.refrs.doc(this.state.t_id).onSnapshot(doc=>{
+  
+    this.setState({train_seats:doc.data().Seats,
+        trainroute_id:doc.data().trainroute_id
+    });
+    console.log(doc.data());
+    console.log(this.state.trainroute_id);
+    this.GetData();
+})
+
+
+
+
+
+
+        // if (this.mounted){
+        // this.ref.where('train_id','==',this.state.t_id).onSnapshot(query=>{
+        //     // console.log(query.data());
+        //     query.forEach(doc=>{
             
-              this.setState({trainroute_id:doc.data().trainroute_id});
+        //       this.setState({trainroute_id:doc.data().trainroute_id});
                
-              this.GetData();
-            });
-           });
+        //       this.GetData();
+        //     });
+        //    });
+        // }
     }
 
     GetData() {
+        if (this.mounted){
         this.refer.doc(this.state.trainroute_id).onSnapshot(query=>{
            
               this.setState({station:query.data().stations});
     
-              
-      
-            this.Data();
+              this.Data();
           });
+        }
       }
 
 
       Data() {
+          if (this.mounted) {
         var name = [];
     
         for (const i = 0; i < this.state.station.length; i++) {
@@ -88,7 +110,7 @@ export default class App extends Component {
           });
          
         }
-      
+    }
 
 
     }
@@ -117,12 +139,14 @@ export default class App extends Component {
 
             const a =this.state.selected1.split(',');
             const b =this.state.selected2.split(',');
-
+                console.log(a[2]);
+                console.log(b[2]);
             const lat1=a[0];
             const lng1=a[1];
             const lat2=b[0];
             const lng2=b[0]
-
+            const source  = a[2];
+            const destination =b[2];    
            const dist = geolib.getDistance(
             {latitude:a[0], longitude: a[1]},
             {latitude:b[0], longitude: b[1]}
@@ -134,7 +158,8 @@ export default class App extends Component {
             this.setState({fare:fare});
            
        
-            navigate('Seats',{train:this.state.t_id,date:this.state.date,fare:fare,slat:lat1,slng:lng1,dlat:lat2,dlng:lng2});
+            navigate('Seats',{train:this.state.t_id,t_s:this.state.train_seats,date:this.state.date,fare:fare,slat:lat1,slng:lng1,dlat:lat2,dlng:lng2
+            ,t_r_id:this.state.trainroute_id ,source:source,destination:destination});
 
            }
 
@@ -178,7 +203,7 @@ return (
                               <Picker.Item label="Select" value="" />
                             {
                                 this.state.stationData.map((i,index)=>{
-                                return  <Picker.Item key={index} label= {`${i.name}`} value={`${i.lat},${i.lng}`} />
+                                return  <Picker.Item key={index} label= {`${i.name}`} value={`${i.lat},${i.lng},${i.name}`} />
                                 })
                             }
                                      
@@ -205,7 +230,7 @@ return (
                               />
                             {
                                 this.state.stationData.map((i,index)=>{
-                                return  <Picker.Item key={index} label= {`${i.name}`} value={`${i.lat},${i.lng}`} />
+                                return  <Picker.Item key={index} label= {`${i.name}`} value={`${i.lat},${i.lng},${i.name}`} />
                                 })
                             }
                                      

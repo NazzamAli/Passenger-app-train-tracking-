@@ -12,6 +12,8 @@ import {
   View
 } from 'react-native';
 import firebase from 'react-native-firebase';
+import  { Notification } from 'react-native-firebase';
+
 import {createStackNavigator} from 'react-navigation';
 import login from './components/login';
 import home from './components/home';
@@ -35,6 +37,8 @@ import Paypal from './components/Paypal';
 import tracking from './components/tracking';
 
 import profile from './components/profile';
+import ticket from './components/ticket';
+import food from './components/food';
 export default class App extends Component {
  
   constructor() {
@@ -42,12 +46,66 @@ export default class App extends Component {
     // this.ref = firebase.firestore().collection('drivers');
     // console.log(this.ref);
 }
+async componentDidMount(){
+
+// Build a channel
+const channel = new firebase.notifications.Android.Channel('test-channel', 'Test Channel', firebase.notifications.Android.Importance.Max)
+  .setDescription('My apps test channel');
+
+// Create the channel
+firebase.notifications().android.createChannel(channel);
+
+  const enabled =  await firebase.messaging().hasPermission();
+  if (enabled) {
+    console.log(enabled);
+    // let token =await firebase.messaging().getToken();
+    
+    // console.log(token);
+      // user has permissions
+  } else {
+      // user doesn't have permission
+      console.log("this is else");
+      console.log(enabled);
+      firebase.messaging().requestPermission()
+  .then(() => {
+    // User has authorised  
+  })
+  .catch(error => {
+    // User has rejected permissions  
+  });
+  }
+  this.notificationDisplayedListener = firebase.notifications().onNotificationDisplayed((notification) => {
+    // Process your notification as required
+   
+    // ANDROID: Remote notifications do not contain the channel ID. You will have to specify this manually if you'd like to re-display the notification.
+    console.log(notification);
+  });
+  this.notificationListener = firebase.notifications().onNotification((notification) => {
+    console.log(notification);
+    // Process your notification as required
+});
+
+const notificationOpen = await firebase.notifications().getInitialNotification();
+if (notificationOpen) {
+    // App was opened by a notification
+    // Get the action triggered by the notification being opened
+    const action = notificationOpen.action;
+    console.log(action);
+    // Get information about the notification that was opened
+    const notification = notificationOpen.notification;
+    console.log(notification);
+}
+
+}
  
  static navigationOptions = {
    header :null
  }
   
   render() {
+
+   
+
     return (
       
       <AppStackNavigator/>
@@ -81,8 +139,8 @@ const  AppStackNavigator=createStackNavigator({
   FoodOrder :{
     screen:foodorder
   },
-  Test : {
-    screen:test
+  Food : {
+    screen:food
   },
   AddItems :{
     screen:additems
@@ -93,7 +151,11 @@ const  AppStackNavigator=createStackNavigator({
   Booking:{
     screen :booking,
    navigationOptions:{
-     header:null
+    title:"Booking",
+    headerTitleStyle: {
+      textAlign:'center',flex:1,
+      marginRight: 55,
+     }
    }
    
   },
@@ -154,6 +216,12 @@ const  AppStackNavigator=createStackNavigator({
   },
   Profile : {
     screen:profile,
+    navigationOptions:{
+      header : null
+    }
+  },
+  Ticket : {
+    screen:ticket,
     navigationOptions:{
       header : null
     }

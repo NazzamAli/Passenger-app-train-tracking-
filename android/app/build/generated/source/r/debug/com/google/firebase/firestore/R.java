@@ -122,7 +122,7 @@ public final class R {
     }
     public static final class string {
         public static final int common_google_play_services_unknown_issue = 0x7f0c003e;
-        public static final int status_bar_notification_info_overflow = 0x7f0c0051;
+        public static final int status_bar_notification_info_overflow = 0x7f0c0052;
     }
     public static final class style {
         public static final int TextAppearance_Compat_Notification = 0x7f0d012c;

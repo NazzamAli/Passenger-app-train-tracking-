@@ -77,7 +77,15 @@ export default class App extends Component {
   };
 
   static navigationOptions = {
-    header: null
+    title: "Routes",
+    headerTitleStyle: {
+      
+      textAlign:'center',flex:1,
+      marginRight: 55,
+      alignSelf: 'center',
+      
+     },
+     
   }
 
   render() {
@@ -95,7 +103,7 @@ export default class App extends Component {
         }
       }
       >
-      <Text style={{fontSize:28,backgroundColor:'purple',textAlign:'center',marginBottom:10}}>Trains</Text>
+     {/* <Text style={{fontSize:28,backgroundColor:'purple',textAlign:'center',marginBottom:10}}>Trains</Text> */}
       <FlatList 
         data={this.state.dataArray}
         

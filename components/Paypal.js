@@ -14,6 +14,12 @@ import { Picker, Item } from 'native-base';
 import {getDistance} from 'geolib';
 
 
+const ro_id ='';
+
+export {ro_id};
+
+
+
 
  const shippingname ='';
 export default class App extends Component {
@@ -23,9 +29,9 @@ export default class App extends Component {
         super(props);
         this.state = {
             count :true,modalVisible:true,
-           
+            t_r_id:this.props.navigation.state.params.t_r_id,
             totalseats: this.props.navigation.state.params.total,
-           
+            datee:this.props.navigation.state.params.date,
             myseats:this.props.navigation.state.params.myseats,
             fare : this.props.navigation.state.params.fare,
             t_id:this.props.navigation.state.params.t_id,
@@ -37,17 +43,28 @@ export default class App extends Component {
             slng: this.props.navigation.state.params.slng,
             dlat: this.props.navigation.state.params.dlat,
             dlng: this.props.navigation.state.params.dlng,
+            p_doc_id:'',
+            source :this.props.navigation.state.params.source,
+            destination:this.props.navigation.state.params.destination
 
         };
-        console.log("akfgf "+this.state.slat+"  "+this.state.fare);console.log(this.state.dlng);
-        console.log(this.state.t_id);
+       
+        
+        
+        
+
+        console.log(this.state.fare);
+        this._isMounted = true;
+       
+        ro_id = this.state.r_id;
         this.reg = firebase.firestore().collection('ticketreservedpassengers');
         this.referss = firebase.firestore().collection('route');
         this.pass= firebase.firestore().collection('passengers');
         const {uid} =firebase.auth().currentUser;
 
+if (this._isMounted){
        this.pass.doc(uid).onSnapshot(query=>{
-            console.log(query.data());
+         //   console.log(query.data());
             shippingname=query.data().name,
 
             this.setState({
@@ -69,13 +86,14 @@ export default class App extends Component {
 
 
             });
+          
 
-
-            console.log(this.state.name);
-            console.log(shippingname);
+            // console.log(this.state.name);
+            // console.log(shippingname);
            // this.add();
+          
         });
-
+      }
 
 
 
@@ -83,56 +101,98 @@ export default class App extends Component {
         
     }
     componentWillUnmount(){
-      this.referss=false;
-      this.pass =false;
-      this.reg =false;
+      this.referss=null;
+      this.pass=null;
+      this.reg =null;
+      this.getMoviesFromApi = null;
+     this._isMounted = false ;
     }
 
     componentDidMount(){
-
+        
+      if (this._isMounted){
         this.getMoviesFromApi(); 
-        const {uid} =firebase.auth().currentUser;
-        // this.pass.doc(uid).onSnapshot(query=>{
-        //     console.log(query.data());
-        //     this.setState({
-        //         Address:query.data().address,
-        //         Cnic:query.data().cnic,
-        //         ContactNo:query.data().contact,
-        //         // Penalties:'',
-        //         // date:'',
-        //         name:query.data().name,
-        //        // panlitiespayment:'',
-        //         route_id:this.state.r_id,
-        //         seats:this.state.myseats,
-        //         // status:'',
-        //         // tracking_id:'',
-        //         // train_id:'',
-        //         email:query.data().email,
-        //         userid:query.data().userid
-
-
-
-        //     });
-
-
-        //     console.log(this.state.name);
-        //    // this.add();
-        // });
-       // this.add();
+      }
+    
        
     }
+    add_route =()=>{
+      this.setState({ modalVisible: false })
+      console.log(this.state.datee +"  "+ this.state.t_id);
+      aq = true;
+      this.referss.where('date','==',this.state.datee).where('train_id','==',this.state.t_id).onSnapshot(query => {
+        console.log(query.empty);
+        
+        if(query.empty){
+          aq=false;
+         // console.log("if is called");
+          this.referss.add ({
 
+            date : this.state.datee,
+            driver_id :'',
+            food: [],
+            id:'',
+            kitchenrunner_id: '',
+            notification:[],
+            reserved_seats:this.state.totalseats,
+            ticketchecker_id:'',
+            train_id:this.state.t_id,
+            trainroute_id:this.state.t_r_id,
+
+
+          }).then(doc =>{
+           
+            console.log("Datas is route");
+            console.log(doc.id);
+             console.log("then is running");
+             console.log(this.state.p_doc_id);
+            this.referss.doc(doc.id).update({
+              id:doc.id
+            });
+            this.reg.doc(this.state.p_doc_id).update({
+              route_id:doc.id
+            });
+            this.reg.doc(this.state.p_doc_id).onSnapshot(d=>{
+              console.log(d);
+
+            })
+            
+           
+            this.props.navigation.navigate('Home1');
+          });
+          ToastAndroid.show("new Route added with id",ToastAndroid.LONG);
+         //
+        }
+        if (aq && !query.empty) {
+          console.log("elese is called");
+          this.referss.doc(this.state.r_id).update({
+            reserved_seats : this.state.totalseats
+    
+          });
+        
+          ToastAndroid.show(' only route updated',ToastAndroid.LONG);
+         
+          this.props.navigation.navigate('Home1');
+
+        }
+
+
+       // this.props.navigation.navigate('Home1');
+       //query.forEach
+     
+    })
+  }
    
     add=()=>{
 
-        const ran =Math.random().toString(36).substring(2, 15);
+        const ran =Math.random().toString(33).substring(2, 10);
         this.reg.add({
 
             Address:this.state.Address,
             Cnic:this.state.Cnic,
             ContactNo:this.state.ContactNo,
             Penalties:this.state.Penalties,
-            date:'2018-10-11',
+            date:this.state.datee,
             name:this.state.name,
             panlitiespayment:this.state.panlitiespayment,
             route_id:this.state.route_id,
@@ -146,39 +206,39 @@ export default class App extends Component {
             slng:this.state.slng,
             dlat:this.state.dlat,
             dlng:this.state.dlng,
-            fare :this.state.fare
+           // fare :this.state.fare * this.state.myseats.length,
+           fare :this.state.fare, 
+           source :this.state.source,
+            destination:this.state.destination
 
-
-
-
-
+        }).then(data=>{
+        //  console.log(data.id);
+          this.setState({p_doc_id:data.id})
+        //  console.log(this.state.p_doc_id);
         })
 
         alert('success');
     }
+
+
     hide () {
+ if(this._isMounted){
       this.setState({ modalVisible: false })
-      this.referss.doc(this.state.r_id).update({
-        reserved_seats : this.state.totalseats
-
-      });
-      ToastAndroid.show('updated',ToastAndroid.SHORT);
-
-      alert('Payment Scuccessfully');
-      this.props.navigation.navigate('Home1');
+     
+    }
     }
     async getMoviesFromApi() {
         const d =this.state.fare+".00";
-        const ran =Math.random().toString(36).substring(2, 15);
-        const n =`${this.state.name}`
-        console.log(n);
+        const ran =Math.random().toString(31).substring(2, 8);
+       // const n =`${this.state.name}`
+        //console.log(n);
         const name = shippingname;
         try {
           let response = await fetch('https://api.sandbox.paypal.com/v1/payments/payment', {
             method: 'POST',
             headers: {
                 'Accept' :'application/json',
-              'Authorization': 'Bearer A21AAFcdhzVmqqkEW9ZfvOjsjMbMNmnQS4FLrdLZo8FL8oToXEJ59xvO2Zo4g9JBBIiIkGFjitwpK49kSX0ei5fAsy3HQf-9w',
+              'Authorization': 'Bearer A21AAEezRAQpQ4b1U_Lf_JC0XvdVK4FFFcGkS-0xNXC6qqYkasEtFZFfUHV1S1LbkyrCuCG6Jy170EwlU_A0FBD4UDh0TitAA',
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
@@ -212,7 +272,7 @@ export default class App extends Component {
                         "item_list": {
                           "items": [
                             {
-                              "name": "your seats",
+                              "name": "Your seats",
                               "description": "door seat.",
                               "quantity": "1",
                               "price": d,
@@ -223,7 +283,7 @@ export default class App extends Component {
                             
                           ],
                           "shipping_address": {
-                            "recipient_name": shippingname,
+                            "recipient_name": name,
                             "line1": "9th Floor",
                             "line2": "Unit #32",
                             "city": "San Jose",
@@ -260,13 +320,13 @@ export default class App extends Component {
 
 
       async payment(payer){
-   
+   if(this._isMounted){
         try {
           let response = await fetch('https://api.sandbox.paypal.com/v1/payments/payment/'+this.state.id+'/execute', {
             method: 'POST',
             headers: {
                 'Accept' :'application/json',
-              'Authorization': 'Bearer A21AAFcdhzVmqqkEW9ZfvOjsjMbMNmnQS4FLrdLZo8FL8oToXEJ59xvO2Zo4g9JBBIiIkGFjitwpK49kSX0ei5fAsy3HQf-9w',
+              'Authorization': 'Bearer A21AAEezRAQpQ4b1U_Lf_JC0XvdVK4FFFcGkS-0xNXC6qqYkasEtFZFfUHV1S1LbkyrCuCG6Jy170EwlU_A0FBD4UDh0TitAA',
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
@@ -285,9 +345,9 @@ export default class App extends Component {
         } catch (error) {
           console.error(error);
         }
-        console.log("below is add");
-       // this.add();
+      
       }
+    }
   
       
 
@@ -295,26 +355,33 @@ export default class App extends Component {
       _onNavigationStateChange =(webstate)=> {
      
         console.log(webstate.url);
+        if (webstate != null || webstate.url != 'about:blank') {
+          console.log("search params");
+          try {
         var urlParams = new URLSearchParams(webstate.url);
         const payer_id = urlParams.get('PayerID');
         console.log(payer_id);
        
         if (payer_id !=null && this.state.count){
         let paid = this.payment(payer_id);
+        console.log(paid);
           this.state.count =false;
           if(paid != null){
           
            this.add();
-           this.hide();
-           
+          // this.hide();
+           this.add_route();
            // alert('Paid');
 
           }
           
    
    
-   
         }
+      }catch (error) {
+        console.error(error);
+      }
+    }
        }  
     
     render() {

@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Sun Oct 14 21:30:24 PKT 2018
+#Thu Oct 25 01:25:24 PKT 2018
 5.base=E\:\\8th Semester\\MyNewApp\\android\\app\\build\\intermediates\\transforms\\mergeJniLibs\\debug\\0
 42.base=E\:\\8th Semester\\MyNewApp\\android\\app\\build\\intermediates\\assets\\debug
 22.path=lib/x86/libyoga.so

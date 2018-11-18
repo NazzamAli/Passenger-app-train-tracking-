@@ -28,13 +28,18 @@ export default class App extends Component {
          array:this.props.navigation.state.params.arr
         };
     this.ref = firebase.firestore().collection('foodorder');    
-     
+     this._mounted =true;
  
+}
+componentWillUnmount(){
+
+  this.ref =null ; 
+  this._mounted =false;
 }
 
    
   AddCart(n,p,i,q){
-   
+   if(this._mounted){
     if (q > 0) {
      
     const arr=[];
@@ -53,12 +58,12 @@ export default class App extends Component {
     else {
       ToastAndroid.show("Please select the quatity",ToastAndroid.SHORT);
     }
-
+  }
   }
 
 
   inc(quant,pri){
-    
+    if(this._mounted){
     if(this.state.quantity<0 || this.state.count<0){
       this.setState({
         count:0,
@@ -67,10 +72,10 @@ export default class App extends Component {
     else{
     this.setState({quantity:quant + 1,total:this.state.total + parseInt(pri)});
     }
-  
+  }
 }
   dec(quant,pri){
-     
+     if(this._mounted){
     if(this.state.quantity<=0 || this.state.count<=0){
       this.setState({
         total:0,
@@ -79,6 +84,7 @@ export default class App extends Component {
     else {
     this.setState({quantity:quant - 1,total:this.state.total - parseInt(pri)});
     }
+  }
   }
 
 

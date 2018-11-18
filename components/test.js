@@ -18,23 +18,23 @@ export default class App extends Component {
   constructor(props) {
     super(props);
       this.state={foodlist: [] ,count:0,quantity:0,text: '',data:[],cartdata:[],totalBill:0,names:[],array:[],loading:true,
-      routeId:this.props.navigation.state.params.id,}
-     
+     // routeId:this.props.navigation.state.params.id,}
+      routeId:this.props.screenProps}
+
+
+      console.log(this.state.routeId);
       this.ref = firebase.firestore().collection('route');
       this.refer = firebase.firestore().collection('fooditems');
 }
-
+componentWillUnmount(){
+  this.ref =false;
+  this.refer =false;
+  this._mounted =false;
+  console.log("thisnis mis");
+}
   componentDidMount() {
-    // BackHandler.addEventListener('hardwareBackPress', function() {
-    //   // this.onMainScreen and this.goBack are just examples, you need to use your own implementation here
-    //   // Typically you would use the navigator here to go to the last state.
-    
-     
-    //     this.goBack();
-    //     return true;
-     
-     
-    // });
+    this._mounted =true;
+    if (this._mounted){
     this.ref.doc(this.state.routeId).onSnapshot(query=>{
      
       const names=query.data().food;
@@ -46,11 +46,12 @@ export default class App extends Component {
        this.GetFoodItems();
     });
    
-    
+  }
   }
 
   GetFoodItems() {
-  
+  if(this._mounted){
+
     var items =[];
    for (const i=0; i < this.state.names.length;i++){
      
@@ -64,7 +65,7 @@ export default class App extends Component {
     this.setState({ foodlist: items });
     this.state.loading =false;
   });
-
+   }
    }
 
   
@@ -77,10 +78,12 @@ export default class App extends Component {
     this.props.navigation.navigate('AddItems',{name:name,price:price,image:img,b:this.bill.bind(this),arr:this.state.array});
   }
 emptycart=()=>{
+  if(this._mounted){
   console.log('empt is called');
   a.length = 0;
  
   this.setState({cartdata:[]});
+  }
 }
 
 Cart=()=>{
@@ -99,6 +102,8 @@ Cart=()=>{
    
   bill(total,orderr){
 
+if(this._mounted){
+
     orderr.forEach(order => {
     
       a.push({
@@ -109,10 +114,6 @@ Cart=()=>{
       });
     });
 
-    
-
-
-
 
 
     this.setState({cartdata:a});
@@ -120,7 +121,7 @@ Cart=()=>{
     
      this.setState({totalBill:this.state.totalBill + parseInt(total)});
      
-    
+  }
   }
   
 
@@ -134,7 +135,7 @@ Cart=()=>{
     
     const d= this.state.foodlist.map((num,index)=>{
 
-       return <Card key={index}  containerStyle={{width:'40%'}} 
+       return  <Card key={index}  containerStyle={{width:'40%'}} 
        
         image={{uri:num.img}}>
           {/* <Image source={{uri: num.img}}

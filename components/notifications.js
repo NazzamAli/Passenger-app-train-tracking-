@@ -20,7 +20,7 @@ export default class App extends Component {
       };
 
       this.ref = firebase.firestore().collection('route');
-
+      
 
     }
     componentDidMount(){
@@ -32,6 +32,12 @@ export default class App extends Component {
         });
 
         this.state.loading=false;
+
+        // firebase.functions().firestore.doc('sQwKm74e9zSdyujPFazO').onUpdate(q=>{
+        //     console.log("in functiond");
+        //     console.log(q);
+        // })
+
 }
 
 

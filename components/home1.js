@@ -47,8 +47,8 @@ componentDidMount(){
   })
 }
 componentWillUnmount(){
- this.ref=false;
- this.reff=false;
+ this.ref=null;
+ this.reff=null;
 }
 
 
@@ -188,6 +188,12 @@ profilepic=()=>{
           <Icon color="white" name="ticket" type='font-awesome' size={75} />
             <Text style={styles.text}>Booking</Text>
           </TouchableOpacity>
+
+           <TouchableOpacity style={styles.touch} onPress={() => navigate('FoodOrder')}>
+           
+           <Icon color="white" name="ticket" type='font-awesome' size={75} />
+             <Text style={styles.text}>Ticket</Text>
+           </TouchableOpacity>
 
 
          

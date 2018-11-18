@@ -58,9 +58,9 @@ export default class App extends Component {
 
 
 
-  static navigationOptions = {
-    header: null
-  }
+  // static navigationOptions = {
+  //   header: null
+  // }
 
   render() {
 

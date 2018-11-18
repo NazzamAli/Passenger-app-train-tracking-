@@ -164,7 +164,7 @@ export default class App extends Component {
 
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.touch} onPress={() => navigate('Test', { id: this.state.routeId })}>
+          <TouchableOpacity style={styles.touch}  onPress={() => navigate('Food', { id: this.state.routeId })}>
 
             <Icon color="white" name="food-fork-drink" type='material-community' size={65} />
             <Text style={styles.text}>Food Order</Text>

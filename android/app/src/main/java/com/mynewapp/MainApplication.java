@@ -3,7 +3,7 @@ package com.mynewapp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.RNFetchBlob.RNFetchBlobPackage;
+//import com.RNFetchBlob.RNFetchBlobPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.zmxv.RNSound.RNSoundPackage;
@@ -16,14 +16,14 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import io.invertase.firebase.storage.RNFirebaseStoragePackage; // <-- Add this line
-
+import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
 import java.util.Arrays;
 import java.util.List;
 import io.invertase.firebase.RNFirebasePackage;
-
+import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
 import io.invertase.firebase.auth.RNFirebaseAuthPackage; 
 import io.invertase.firebase.firestore.RNFirebaseFirestorePackage; // <-- Add this line
-
+import io.invertase.firebase.functions.RNFirebaseFunctionsPackage;
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
@@ -36,7 +36,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new RNFetchBlobPackage(),
+           // new RNFetchBlobPackage(),
             
            
             new ImagePickerPackage(),
@@ -46,8 +46,11 @@ public class MainApplication extends Application implements ReactApplication {
             new RNFirebasePackage(),
             new VectorIconsPackage(),
             new RNFirebaseAuthPackage(),
-             new RNFirebaseFirestorePackage(), // <-- Add this line
-               new RNFirebaseStoragePackage() // <-- Add this line
+             new RNFirebaseNotificationsPackage() ,
+              new RNFirebaseMessagingPackage() ,
+              new RNFirebaseFunctionsPackage(),
+             new RNFirebaseFirestorePackage()// <-- Add this line
+             //  new RNFirebaseStoragePackage() // <-- Add this line
             
              
       );
